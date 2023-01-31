@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="admin/module/_header"></div>
+
+<div class="wrapper">
+    <!-- 菜单栏模块 -->
+    <div th:replace="admin/module/_sidebar"></div>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                [[${title}]]
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a data-pjax="true" href="/admin">
+                        <i class="fa fa-dashboard"></i>home</a>
+                </li>
+                <li><a data-pjax="true" href="/admin/comment">comment management</a></li>
+                <li class="active">[[${title}]]</li>
+            </ol>
+        </section>
+        <section class="content container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <form action="/admin/comment/create" method="post" role="form" >
+                            <input type="hidden" id="id" th:value="${comment.id}">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label>Author Name</label>
+                                    <input type="text" class="form-control" th:value="${comment.authorName}" id="authorName">
+                                </div>
+                                <div class="form-group">
+                                    <label>Author Email</label>
+                                    <input type="text" class="form-control" th:value="${comment.authorEmail}" id="authorEmail">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Comment Content</label>
+                                    <textarea class="form-control" rows="3"  id="commentContent"
+                                              style="resize: none">[[${comment.commentContent}]]</textarea>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="button" onclick="updateSubmit()"
+                                        class="btn btn-primary btn-sm ">Submit
+                                </button>
+                                <a href="/admin/comment"
+                                   class="btn btn-info btn-sm">back</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        function updateSubmit() {
+            $.ajax({
+                type: 'POST',
+                url: '/admin/comment/update',
+                async: false,
+                data: {
+                    'id': $('#id').val(),
+                    'authorName': $('#authorName').val(),
+                    'authorEmail': $('#authorEmail').val(),
+                    'commentContent': $('#commentContent').val()
+                },
+                success: function (data) {
+                    if (data.code == 0) {
+                        showMsg(data.msg, "error", 1000);
+                    } else {
+                        showMsgAndRedirect(data.msg, "success", 1000, "/admin/comment");
+                    }
+                }
+            });
+        };
+    </script>
+</div>
+<div th:replace="admin/module/_footer"></div>
+

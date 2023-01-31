@@ -1,0 +1,233 @@
+﻿<div th:replace="front/module/_header"></div>
+
+<div class="page-container">
+    <!-- page heading-->
+    <div class="page-heading-container loaded-images-wrapper">
+        <div class="page-heading news-detail"><img
+                src="/static/assets/images/news-2-page-heading-bg.jpg" alt=""
+                class="blog-featured-image">
+            <div class="title-wrapper">
+                <div class="title">[[${title}]]</div>
+            </div>
+            <div class="breadcrumb-wrapper">
+                <ul class="list-inline mb-0">
+                    <li><a href="/">Home</a></li>
+                    <li class="current"><a>[[${title}]]</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 col-lg-8">
+                    <div class="mbsl"></div>
+                    <div class="page-detail">
+                        <div class="blog-wrapper">
+                            <div class="blog-header">
+                                <div class="row">
+                                    <div class="col-xl-9">
+                                        <div class="blog-info">
+                                            <ul class="list-inline mb-0">
+                                                <li class="blog-date"><span>
+                                                    [[${#dates.format(post.createTime,'yyyy-MM-dd HH:mm:ss')}]]
+                                                </span></li>
+                                                <li class="blog-comment-count">
+                                                    <span>[[${pageInfo.total}]] comments</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <div class="social-share">
+                                            <div class="blog-share">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="blog-content">
+                                <div class="row">
+                                    <div class="col-md-12" th:utext="${post.postContent}">
+
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="blog-footer">
+                                <div class="blog-tags">
+                                    <ul class="list-inline mb-0">
+                                        <li th:each="item : ${currentTagList}"><a th:href="'/tag/'+${item.id}"
+                                                                                  class="swin-transition">#[[${item.tagName}]]</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="blog-author-area swin-panel">
+                            <div class="media">
+                                <div class="author-image media-left"><img th:src="${user.userAvatar}"
+                                                                          style="width: 130px;height: 130px;" alt="alay"
+                                                                          class="img-fluid"></div>
+                                <div class="media-body">
+                                    <div class="row">
+                                        <div class="col-xl-8">
+                                            <h4 class="author-name media-heading mt-2">[[${user.userDisplayName}]]</h4>
+                                        </div>
+                                        <div class="col-xl-4">
+
+                                        </div>
+                                    </div>
+                                    <p class="author-desc mt-2">
+                                        [[${user.userDesc}]]
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blog-comment swin-panel mbsl">
+                            <div class="blog-comment-heading swin-title-line line-right text-uppercase font-weight-bold">
+                                <span>[[${pageInfo.total}]] COMMENTS</span></div>
+                            <div class="comment-area">
+                                <ul class="list-unstyled">
+                                    <li th:each="item : ${pageInfo.records}" class="media mb-3">
+                                       <img th:src="${item.authorAvatar}" th:alt="${item.authorName}" style="width: 64px; height: 64px;"
+                                             class="mr-3 avatar">
+                                        <div class="media-body">
+                                            <div class="comment-top">
+                                                <span class="comment-author">[[${item.authorName}]]</span>
+                                                <div class="comment-info">
+                                                    <span class="comment-date">[[${#dates.format(item.createTime,'yyyy-MM-dd HH:mm:ss')}]]</span>
+                                                    <span>
+                                                        <a href="javascript:void(0)"
+                                                           th:onclick="replyIt([[${item.id}]], [[${item.authorName}]])"
+                                                           class="text-danger text-uppercase">Reply</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            [[${item.commentContent}]]
+                                            <div class="media mt-3"
+                                                 th:each="item2 : ${item.childCommentList}">
+                                                <a href="#" class="mr-3">
+                                                    <img th:src="${item2.authorAvatar}" th:alt="${item2.authorName}" class="mr-3 avatar" style="width: 64px; height: 64px;">
+                                                </a>
+                                                <div class="media-body">
+                                                    <div class="comment-top">
+                                                        <span class="comment-author">[[${item2.authorName}]]</span>
+                                                        <div class="comment-info">
+                                                            <span class="comment-date">
+                                                                [[${#dates.format(item2.createTime,'yyyy-MM-dd HH:mm:ss')}]]
+                                                            </span>
+                                                            <span>
+                                                                <a href="javascript:void(0)"
+                                                                   th:onclick="replyIt([[${item.id}]], [[${item2.authorName}]])"
+                                                                   class="text-danger text-uppercase">Reply</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    [[${item2.commentContent}]]
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div style="margin-top: 50px;"></div>
+                            <div th:replace="front/module/_page"></div>
+                            <div style="margin-top: 50px;"></div>
+
+                            <div class="comment-respond">
+                                <div class="swin-title-line line-right text-uppercase font-weight-bold"><span>Leave comment</span>
+                                </div>
+                                <div class="mbl"></div>
+                                <form  method="post" class="comment-form row">
+                                    <input type="hidden" id="postId" th:value="${post.id}">
+                                    <input type="hidden" id="commentParent" value="0">
+                                    <div class="form-group col-md-6">
+                                        <div class="input-group">
+                                            <input id="authorName" name="author" type="text" value="" aria-required="true"
+                                                   required="required" placeholder="Your Name"  class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <div class="input-group">
+                                            <input id="authorEmail" name="email" type="email" value="" size="30"
+                                                   aria-required="true" required="required" placeholder="Email Address"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <textarea id="commentContent" name="comment" required="required"
+                                                  placeholder="Your Comment" rows="10" class="form-control"></textarea>
+                                    </div>
+                                    <div class="form-group col-md-12 mb-0">
+                                        <button onclick="commentIt()" type="button" class="swin-btn swin-btn-primary"><span>Post Comment</span></button>
+                                        <button onclick="cancelReplyIt()" id="cancelReplyBtn" style="display: none;" type="button" class="swin-btn"><span>Cancel Reply</span></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mbsl d-none d-xs-block"></div>
+                </div>
+                <div class="col-xl-3 col-lg-4">
+                    <div class="mbsl d-none d-lg-block"></div>
+                    <div th:replace="front/module/_sidebar"></div>
+
+                    <div class="mbsl"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        $(document).ready(function () {
+            const authorName = localStorage.getItem("authorName");
+            const authorEmail = localStorage.getItem("authorEmail");
+            if (authorName != null) {
+                $("#authorName").val(authorName);
+            }
+            if (authorEmail != null) {
+                $("#authorEmail").val(authorEmail);
+            }
+        });
+
+        function replyIt(parentId, parentAuthorName) {
+            $('#commentParent').val(parentId);
+            $('#commentContent').val('@'+parentAuthorName+': ')
+            $('#cancelReplyBtn').show();
+        }
+
+        function cancelReplyIt() {
+            $('#commentParent').val(0);
+            $('#commentContent').val('');
+            $('#cancelReplyBtn').hide();
+        }
+
+        function commentIt() {
+            localStorage.setItem('authorName', $("#authorName").val());
+            localStorage.setItem('authorEmail', $("#authorEmail").val());
+            $.ajax({
+                type: 'POST',
+                url: '/comment',
+                async: false,
+                data: {
+                    'postId': $('#postId').val(),
+                    'authorName': $('#authorName').val(),
+                    'authorEmail': $('#authorEmail').val(),
+                    'commentContent': $('#commentContent').val(),
+                    'commentParent': $('#commentParent').val(),
+                },
+                success: function (data) {
+                    if (data.code == 0) {
+                        showMsg(data.msg, "error", 1000);
+                    } else {
+                        showMsgAndReload(data.msg, "success", 1000);
+                    }
+                }
+            });
+        }
+    </script>
+</div>
+<div th:replace="front/module/_footer"></div>

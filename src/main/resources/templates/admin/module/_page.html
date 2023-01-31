@@ -1,0 +1,30 @@
+<div class="no-margin pull-left">
+    [[${pageInfo.current}]] / [[${pageInfo.pages}]]
+</div>
+<ul class="pagination no-margin pull-right">
+    <li><a data-pjax="true" th:classappend="${pageInfo.current == 1 ? 'disabled' : ''}"
+           class="btn btn-sm"
+           th:href="${pagePrefix} + 'page=1'">
+        First
+    </a>
+    </li>
+    <li><a data-pjax="true" class="btn btn-sm"
+           th:classappend="${pageInfo.current == 1 ? 'disabled' : ''}"
+           th:href="${pagePrefix} + 'page='+${pageInfo.current - 1}">
+        Prev
+    </a>
+    </li>
+    <li><a data-pjax="true" class="btn btn-sm"
+           th:classappend="${pageInfo.current >= pageInfo.pages ? 'disabled' : ''}"
+           th:href="${pagePrefix} + 'page='+${pageInfo.current + 1}">
+        Next
+    </a>
+    </li>
+    <li><a data-pjax="true" class="btn btn-sm"
+           th:classappend="${pageInfo.current >= pageInfo.pages ? 'disabled' : ''}"
+           th:href="${pagePrefix} + 'page='+${pageInfo.pages}">
+
+        Last
+    </a>
+    </li>
+</ul>

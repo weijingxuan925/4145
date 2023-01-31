@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="admin/module/_header"></div>
+
+<div class="wrapper">
+    <!-- 菜单栏模块 -->
+    <div th:replace="admin/module/_sidebar"></div>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                [[${title}]]
+            </h1>
+            <ol class="breadcrumb">
+                <li>
+                    <a data-pjax="true" href="/admin">
+                        <i class="fa fa-dashboard"></i>home</a>
+                </li>
+                <li><a data-pjax="true" href="/admin/tag">tag management</a></li>
+                <li class="active">[[${title}]]</li>
+            </ol>
+        </section>
+        <section class="content container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <form action="/admin/tag/create" method="post" role="form" >
+                            <input type="hidden" id="id" th:value="${tag.id}">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" th:value="${tag.tagName}" id="tagName">
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="button" onclick="updateSubmit()"
+                                        class="btn btn-primary btn-sm ">Submit
+                                </button>
+                                <a href="/admin/tag"
+                                   class="btn btn-info btn-sm">back</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        function updateSubmit() {
+            $.ajax({
+                type: 'POST',
+                url: '/admin/tag/update',
+                async: false,
+                data: {
+                    'id': $('#id').val(),
+                    'tagName': $('#tagName').val()
+                },
+                success: function (data) {
+                    if (data.code == 0) {
+                        showMsg(data.msg, "error", 1000);
+                    } else {
+                        showMsgAndRedirect(data.msg, "success", 1000, "/admin/tag");
+                    }
+                }
+            });
+        };
+    </script>
+</div>
+<div th:replace="admin/module/_footer"></div>
+
