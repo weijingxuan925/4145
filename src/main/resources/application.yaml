@@ -11,15 +11,24 @@ server:
       timeout: 86400
 
 spring:
+#  开启热部署
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+
   transaction:
     rollback-on-commit-failure: true
+
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    #MySql配置
+
+    # MySql配置
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/flame?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false&allowMultiQueries=true
     username: root
     password: Wjx010925
+
   thymeleaf:
     mode: HTML5
     cache: false
@@ -27,14 +36,12 @@ spring:
     encoding: UTF-8
     suffix: .html
     check-template-location: false
+
   servlet:
     multipart:
       max-file-size: 2MB
       max-request-size: 20MB
-  devtools:
-    restart:
-      enabled: true
-      additional-paths: src/main/java
+
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Dao.xml

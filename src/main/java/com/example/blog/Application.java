@@ -8,24 +8,19 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 
 /**
- * <pre>
- *     SENS run!
- * </pre>
  *
- * @author : saysky
- * @date : 2017/11/14
+ * @author : JingxuanWei
+ * &#064;date  : 2023/2/1
  */
 @Slf4j
 @SpringBootApplication
 @EnableCaching
 @MapperScan("com.example.blog.dao")
 public class Application {
-
-
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(Application.class, args);
         String serverPort = context.getEnvironment().getProperty("server.port");
-        log.info("flame started at http://localhost:" + serverPort);
+        log.info("vblog started at http://localhost:" + serverPort);
     }
 
 
