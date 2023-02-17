@@ -9,14 +9,14 @@
 
 
     <description>
-        基于SpringBoot的博客系统
+        JingxuanWei for the Project CSCI4145
     </description>
 
     <developers>
         <developer>
-            <id>saysky</id>
-            <name>言曌</name>
-            <email>admin@example.com</email>
+            <id>B00844431</id>
+            <name>JingxuanWei</name>
+            <email>Jn728702@dal.ca</email>
             <url>https://example.com</url>
         </developer>
     </developers>
