@@ -8,9 +8,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 
 /**
- *
  * @author : JingxuanWei
- * &#064;date  : 2023/2/1
  */
 @Slf4j
 @SpringBootApplication

@@ -42,7 +42,6 @@ spring:
       max-file-size: 2MB
       max-request-size: 20MB
 
-
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Dao.xml
   #实体扫描，多个package用逗号或者分号分隔
@@ -64,9 +63,10 @@ mybatis-plus:
     cache-enabled: true
 
 logging:
-  file: ./logs/log.log
   level:
     org:
       springframework:
         boot:
           autoconfigure: error
+  file:
+    name: ./logs/log.log
