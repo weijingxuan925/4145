@@ -1,3 +1,7 @@
 /target/classes/
 /.idea/
 /logs/
+/flame.sql
+/flame初始.sql
+/src/main/resources/mapper/
+/src/main/resources/static/
