@@ -1,7 +1,3 @@
 /target/classes/
 /.idea/
 /logs/
-/src/main/resources/mapper/
-/src/main/resources/static/
-/f1.sql
-/flame.sql
