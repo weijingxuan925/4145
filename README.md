@@ -1,5 +1,9 @@
 # CSCi4145
 for project in CSCI4145 cloud computing
+
+# introduction
+this is a blog project
+
 # Author
 - [JingxuanWei](jn728702@dal.ca)
 - B00844431
