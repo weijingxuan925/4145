@@ -30,18 +30,6 @@
     margin: 0 10px;
 }
 
-#share-qrcode {
-    background-image: url(/static/front/images/wechat.png);
-}
-
-#share-sina {
-    background-image: url(/static/front/images/sina.png);
-}
-
-#share-qq {
-    background-image: url(/static/front/images/qq.png);
-}
-
 .justify-content-center {
     -ms-flex-pack: center !important;
     justify-content: center !important;

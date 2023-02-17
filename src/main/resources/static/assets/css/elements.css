@@ -8,9 +8,6 @@ Press Ctrl + F to find component. Ex: "#Header";
 - #DarkMode
 - #Responsive
 -------------------------------------------------------------------*/
-/*------
-// Variables
--------*/
 .last-col {
   overflow: hidden !important; }
 
@@ -354,9 +351,6 @@ img {
 input.form-group.style-2 {
   height: 3rem; }
 
-/* ==========================================================================
-  0.#Utility class
-========================================================================== */
 .body-grey {
   background-color: #f2f2f2; }
 
