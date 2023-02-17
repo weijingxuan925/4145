@@ -19,17 +19,14 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
- * (Comment)table controller
- *
- * @author makejava
- * @since 2022-01-08 13:30:00
+ * Admin comment controller
+ * @author JingxuanWei
+ * @since 2023/2/17
  */
 @Controller("adminCommentController")
+// the admin comment controller
 @RequestMapping("/admin/comment")
 public class CommentController {
-    /**
-     * dependent object
-     */
     @Autowired
     private CommentService commentService;
     @Autowired
@@ -37,11 +34,10 @@ public class CommentController {
 
     /**
      * Paginated query page
-     *
-     * @param model
-     * @param pageNum
-     * @param pageSize
-     * @return
+     * @param model   is the model
+     * @param pageNum is the page number
+     * @param pageSize is the page size
+     * @return the page
      */
     @GetMapping
     public String pageOfList(Model model,
@@ -65,9 +61,8 @@ public class CommentController {
 
 
     /**
-     * Create page
-     *
-     * @return
+     * Create page of comment
+     * @return the page
      */
     @GetMapping("/reply/{id}")
     public String pageOfCreate(@PathVariable("id") Long id, Model model) {
@@ -75,15 +70,13 @@ public class CommentController {
         model.addAttribute("comment", comment);
         model.addAttribute("title", "create comment");
         model.addAttribute("tab", "comment");
-
         return "admin/comment/reply";
     }
 
 
     /**
-     * edit page
-     *
-     * @return
+     * edit page of comment
+     * @return the page
      */
     @GetMapping("/edit/{id}")
     public String pageOfEdit(@PathVariable("id") Long id, Model model) {
@@ -91,43 +84,40 @@ public class CommentController {
         model.addAttribute("comment", comment);
         model.addAttribute("title", "edit comment");
         model.addAttribute("tab", "comment");
-
         return "admin/comment/edit";
-
     }
 
 
     /**
-     * Paginated query list
-     *
-     * @param id
-     * @return
+     * Paginated query list action
+     * @param id    id
+     * @return JsonResult
      */
     @PostMapping("/delete")
     @ResponseBody
     public JsonResult delete(@RequestParam("id") Long id) {
         commentService.delete(id);
-        return JsonResult.success("Successfully deleted");
+        return JsonResult.success("Successfully deleted !");
     }
 
     /**
-     * Batch delete action
+     * Batch delete action (delete multiple)
      *
-     * @param ids
-     * @return
+     * @param ids id list
+     * @return JsonResult
      */
     @PostMapping("/batchDelete")
     @ResponseBody
     public JsonResult delete(@RequestParam("ids") List<Long> ids) {
         commentService.batchDelete(ids);
-        return JsonResult.success("Successfully batch deleted");
+        return JsonResult.success("Successfully batch deleted !");
     }
 
     /**
-     * Create action
+     * Create action (reply)
      *
-     * @param comment
-     * @return
+     * @param comment comment
+     * @return JsonResult
      */
     @PostMapping("/reply")
     @ResponseBody
@@ -137,21 +127,20 @@ public class CommentController {
         comment.setAuthorEmail(user.getUserEmail());
         comment.setAuthorAvatar(user.getUserAvatar());
         commentService.insert(comment);
-        return JsonResult.success("Successfully replied");
+        return JsonResult.success("Successfully replied !");
     }
 
 
     /**
-     * Update action
+     * Update action (edit)
      *
-     * @param comment
-     * @return
+     * @param comment comment
+     * @return JsonResult
      */
     @PostMapping("/update")
     @ResponseBody
     public JsonResult update(Comment comment) {
         commentService.update(comment);
-        return JsonResult.success("Successfully updated");
+        return JsonResult.success("Successfully updated !");
     }
-
 }
