@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 80
 
   undertow:
     io-threads: 2
@@ -28,6 +28,7 @@ spring:
     url: jdbc:mysql://localhost:3306/flame?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false&allowMultiQueries=true
     username: root
     password: Wjx010925
+    #password: 311252
 
   thymeleaf:
     mode: HTML5
