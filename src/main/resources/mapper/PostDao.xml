@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.blog.dao.PostDao">
+    <resultMap type="com.example.blog.entity.Post" id="PostMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="postContent" column="post_content" jdbcType="OTHER"/>
+        <result property="postStatus" column="post_status" jdbcType="INTEGER"/>
+        <result property="postSummary" column="post_summary" jdbcType="VARCHAR"/>
+        <result property="postThumbnail" column="post_thumbnail" jdbcType="VARCHAR"/>
+        <result property="postTitle" column="post_title" jdbcType="VARCHAR"/>
+        <result property="postViews" column="post_views" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="findByCategoryId" resultMap="PostMap">
+        SELECT p.*
+        FROM post p
+        JOIN post_category_ref r ON r.post_id = p.id
+        JOIN category c ON c.id = r.cate_id
+        WHERE p.post_status = 1
+        AND c.id = #{categoryId}
+        <if test="keywords != null and keywords != ''">
+            AND (p.post_title LIKE CONCAT('%', #{keywords}, '%')
+            OR p.post_content LIKE CONCAT('%', #{keywords}, '%'))
+        </if>
+    </select>
+
+    <select id="findByTagId" resultMap="PostMap">
+        SELECT p.*
+        FROM post p
+        JOIN post_tag_ref r ON r.post_id = p.id
+        JOIN tag t ON t.id = r.tag_id
+        WHERE p.post_status = 1
+        AND t.id = #{tagId}
+        <if test="keywords != null and keywords != ''">
+            AND (p.post_title LIKE CONCAT('%', #{keywords}, '%')
+            OR p.post_content LIKE CONCAT('%', #{keywords}, '%'))
+        </if>
+    </select>
+
+
+</mapper>

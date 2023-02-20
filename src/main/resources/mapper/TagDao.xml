@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blog.dao.TagDao">
+
+    <resultMap type="com.example.blog.entity.Tag" id="TagMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="tagName" column="tag_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findAllWithCount" resultType="com.example.blog.entity.Tag">
+#  在这个查询语句中，我们使用 LEFT JOIN 子句来连接 tag、post_tag_ref 和 post 表，
+#  然后使用 GROUP BY 子句来分组标签，并使用 COUNT 聚合函数计算每个标签的文章数。
+#  这种方式将子查询转换为更高效的 JOIN 子句，可以减少查询的复杂度和查询执行的时间，
+        SELECT
+            t.id,
+            t.tag_name AS tagName,
+            COUNT(pt.post_id) AS count
+        FROM
+            tag t
+                LEFT JOIN post_tag_ref pt ON t.id = pt.tag_id
+                LEFT JOIN post p ON pt.post_id = p.id
+        GROUP BY
+            t.id
+        ORDER BY
+            count DESC
+        LIMIT 100
+    </select>
+</mapper>

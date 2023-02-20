@@ -1,0 +1,11 @@
+@media screen and (min-width: 1367px) {
+  .open-offcanvas,
+  .close-offcanvas,
+  i.btn-open-dropdown {
+    display: none; } }
+
+@media screen and (max-width: 1366px) and (min-width: 1025px) {
+  .open-offcanvas,
+  .close-offcanvas,
+  i.btn-open-dropdown {
+    display: none; } }

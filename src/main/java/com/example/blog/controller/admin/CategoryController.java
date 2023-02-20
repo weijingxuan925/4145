@@ -17,30 +17,25 @@ import org.springframework.stereotype.Controller;
 import java.util.List;
 
 /**
- * (Category)table controller
- *
- * @author makejava
- * @since 2022-01-08 13:30:00
+ * Admin category controller
+ * @author JingxuanWei
+ * @since 2023/2/17
  */
 @Controller("adminCategoryController")
+// the admin category controller
 @RequestMapping("/admin/category")
 public class CategoryController {
-    /**
-     * dependent object
-     */
     @Autowired
     private CategoryService categoryService;
-
     /**
      * Paginated query page
-     *
-     * @param model
-     * @param pageNum
-     * @param pageSize
-     * @return
+     * @param model is the model
+     * @param pageNum is the page number
+     * @param pageSize is the page size
+     * @return the page
      */
     @GetMapping
-    public String pageOfList(Model model,
+    public String pageToList(Model model,
                              @RequestParam(value = "page", defaultValue = "1") Integer pageNum,
                              @RequestParam(value = "size", defaultValue = "10") Integer pageSize) {
 
@@ -53,93 +48,86 @@ public class CategoryController {
         model.addAttribute("pagePrefix", "/admin/category?");
         model.addAttribute("title", "category list");
         model.addAttribute("tab", "category");
+        // return the page of the list
         return "admin/category/list";
     }
 
 
     /**
-     * Create page
-     *
-     * @return
+     * Create page for the category list
+     * @return the page
      */
     @GetMapping("/create")
-    public String pageOfCreate(Model model) {
+    public String pageToCreate(Model model) {
         model.addAttribute("title", "create category");
         model.addAttribute("tab", "category");
         return "admin/category/create";
-
     }
 
     /**
-     * edit page
-     *
-     * @return
+     * edit page for the category list
+     * @return the page
      */
     @GetMapping("/edit/{id}")
-    public String pageOfEdit(@PathVariable("id") Long id, Model model) {
+    public String pageToEdit(@PathVariable("id") Long id, Model model) {
         Category category = categoryService.get(id);
         model.addAttribute("category", category);
         model.addAttribute("title", "edit category");
         model.addAttribute("tab", "category");
         return "admin/category/edit";
-
     }
 
-
     /**
-     * Paginated query list
-     *
-     * @param id
-     * @return
+     * Paginated query list action
+     * @param id is the id
+     * @return the list
      */
     @PostMapping("/delete")
     @ResponseBody
     public JsonResult delete(@RequestParam("id") Long id) {
         categoryService.delete(id);
-        return JsonResult.success("Successfully deleted");
+        return JsonResult.success("Successfully deleted this index !");
     }
 
     /**
      * Batch delete action
-     *
-     * @param ids
-     * @return
+     * @param ids is the list of ids
+     * @return the list
      */
     @PostMapping("/batchDelete")
     @ResponseBody
-    public JsonResult delete(@RequestParam("ids") List<Long> ids) {
+    public JsonResult batchDeleteIndex(@RequestParam("ids") List<Long> ids) {
         categoryService.batchDelete(ids);
-        return JsonResult.success("Successfully batch deleted");
+        return JsonResult.success("Successfully batch deleted the index !");
     }
 
     /**
-     * Create action
+     * Create action for the category list
      *
-     * @param category
-     * @return
+     * @param category is the category
+     * @return  the list
      */
     @PostMapping("/create")
     @ResponseBody
     public JsonResult create(Category category) {
         Category checkName = categoryService.findByCateName(category.getCateName());
         if (checkName != null) {
-            return JsonResult.error("Name already exists");
+            return JsonResult.error("Name already exists !");
         }
         categoryService.insert(category);
-        return JsonResult.success("Successfully created");
+        return JsonResult.success("Successfully created !");
     }
-
     /**
-     * Update action
+     * Update action for the category list
      *
-     * @param category
-     * @return
+     * @param category is the category
+     * @return the list
      */
     @PostMapping("/update")
     @ResponseBody
     public JsonResult update(Category category) {
         categoryService.update(category);
-        return JsonResult.success("Successfully updated");
+        return JsonResult.success("Successfully updated !");
     }
 
 }

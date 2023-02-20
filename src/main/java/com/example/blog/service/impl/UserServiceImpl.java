@@ -48,12 +48,12 @@ public class UserServiceImpl implements UserService {
 
     private User createDefaultUser() {
         User user = new User();
-        user.setUserName("flame");
-        user.setUserDisplayName("flame");
+        user.setUserName("Vlog");
+        user.setUserDisplayName("Vlog");
         user.setUserAvatar("/static/images/avatar/avatar.png");
-        user.setUserEmail("flame@gmail.com");
+        user.setUserEmail("Vlog@gmail.com");
         user.setUserPass("123456");
-        user.setUserDesc("Hello world!");
+        user.setUserDesc("Vlog project");
         this.insert(user);
         return user;
     }
