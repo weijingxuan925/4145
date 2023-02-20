@@ -32,3 +32,4 @@
 
 ### in static/js
 1. Almsaeed Studio https://github.com/almasaeed2010/AdminLTE.git
+2. c
