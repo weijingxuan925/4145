@@ -37,4 +37,12 @@
 2. https://github.com/necolas/normalize.css
 3. https://github.com/twbs/bootstrap
 
-### in static/login
+### in static/plugins
+1. animate.css -http://daneden.me/animate
+2. https://github.com/twbs/bootstrap
+3. bootstrap-fileinput v5.1.6 http://plugins.krajee.com/file-input
+4. http://twitter.com/nghuuphuoc
+5. Font Awesome 4.7.0 by @davegandy - http://fontawesome.io
+6. froala_editor v2.9.1 (https://www.froala.com/wysiwyg-editor) -- this is the admin post editor
+7. jQuery v3.2.1 | (c) JS Foundation and other contributors | jquery.org/license 
+8. /*! layer mobile-v2.0.0 Web弹层组件 MIT License  http://layer.layui.com/mobile  By 贤心 */
