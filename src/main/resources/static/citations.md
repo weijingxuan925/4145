@@ -25,11 +25,16 @@
 3. href="/static/assets/css/shortcode.css">
 4. href="/static/assets/css/widget.css">  
 
-
 ### in static/css
 1. https://github.com/lipis/bootstrap-social
 2. Website: Almsaeed Studio <https://adminlte.io>
 
 ### in static/js
 1. Almsaeed Studio https://github.com/almasaeed2010/AdminLTE.git
-2. c
+
+### in static/login
+1. https://fonts.googleapis.com/css?family=Krub:400,500,600
+2. https://github.com/necolas/normalize.css
+3. https://github.com/twbs/bootstrap
+
+### in static/login
