@@ -20,6 +20,4 @@ public class Application {
         String serverPort = context.getEnvironment().getProperty("server.port");
         log.info("vblog started at http://localhost:" + serverPort);
     }
-
-
 }

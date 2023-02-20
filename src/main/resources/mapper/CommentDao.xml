@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.blog.dao.CommentDao">
+        <!--
+        用于将数据库中的数据映射到 Java 对象中
+        定义了一个名为 CommentDao 的 Mapper，
+        它映射了一个名为 com.example.blog.entity.Comment 的实体类。
+        您定义了一个 ID 为 commentMap 的 resultMap，它包含了 Comment 对象的 id、parentId、postId、createTime 和 content 属性的映射关系
+        在 result 元素中，您指定了数据库中的列和 Java 对象中的属性之间的映射关系。
+        例如，<result property="id" column="id" jdbcType="INTEGER"/> 表示将数据库中的 id 列映射到 Comment 对象的 id 属性上，并且这个属性的类型是 INTEGER。
+        通过使用 MyBatis 映射文件，您可以轻松地将数据库中的数据映射到 Java 对象中，从而简化了访问和操作数据库的过程。
+        -->
+    <resultMap type="com.example.blog.entity.Comment" id="commentMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
+        <result property="postId" column="post_id" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+    </resultMap>
+</mapper>
