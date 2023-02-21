@@ -17,8 +17,6 @@ function showMsg(text, icon, hideAfter) {
         loaderBg: '#ffffff'
     });
 }
-
-
 function showMsgAndReload(text, icon, hideAfter) {
     const heading = "Tips";
     $.toast({
@@ -53,11 +51,6 @@ function showMsgAndRedirect(text, icon, hideAfter, redirectUrl) {
     });
 }
 
-
-
-/**
- * 全选和反选在admin界面里面
- */
 function doCheck() {
     const ch = document.getElementsByName("ids");
     const allSelect = document.getElementById("allSelect").checked;
