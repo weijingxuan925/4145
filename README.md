@@ -19,8 +19,8 @@ this is a blog project
 1. `docker pull weijingxuan925/vlog:latest`
 2. `docker run -p 80:80 -d weijingxuan925/vlog:latest`
 3. `docker run -p 80:80 --name myproject --network host -e SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/flame -e  SPRING_DATASOURCE_USERNAME=root -e  SPRING_DATASOURCE_PASSWORD=Wjx010925 weijingxuan925/vlog`
-4. 注意，使用这种网络模式有一些限制和安全隐患，请确保你理解这些风险并根据你的实际情况来决定是否使用这种方式。如果你不确定，那么请使用默认的桥接网络模式。
-   =======
+##### 注意，使用这种网络模式有一些限制和安全隐患，请确保你理解这些风险并根据你的实际情况来决定是否使用这种方式。如果你不确定，那么请使用默认的桥接网络模式。
+
 ## how to run
 1. install docker
 2. install docker-compose
