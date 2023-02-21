@@ -1,16 +1,22 @@
 <aside class="main-sidebar">
     <section class="sidebar">
-<!--最上面的头像-->
+
         <div class="user-panel">
+            <!--最上面的头像-->
             <div class="pull-left image">
                 <img th:src="${session.user.userAvatar}" class="img-circle loginUserAvatar" style="width: 45px;height: 45px;" alt="User Image">
             </div>
+
             <div class="pull-left info">
                 <p class="loginUserDisplayName">[[${session.user.userName}]]</p>
-                <a href="/admin/user/profile"><i
-                        class="fa fa-circle text-success"></i>ADMIN</a>
+                <a href="/admin/user/profile">
+                    <i class="fa fa-circle text-success"></i>
+                    ADMIN
+                </a>
             </div>
+
         </div>
+
         <form action="/search" method="get" target="_blank" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="keyword" class="form-control" placeholder="Search...">
@@ -22,7 +28,7 @@
             </div>
         </form>
         <ul class="sidebar-menu tree" data-widget="tree">
-            <li class="header">LIST</li>
+            <li class="header">Quick Jump</li>
             <li th:classappend="${tab == 'index' ? 'active' : ''}"><a  href="/admin"> <i class="fa fa-dashboard"></i> <span>Main</span> </a></li>
             <li th:classappend="${tab == 'post' ? 'active' : ''}"><a  href="/admin/post"> <i class="fa fa-pencil"></i> <span>Posts</span> </a></li>
             <li th:classappend="${tab == 'category' ? 'active' : ''}"><a  href="/admin/category"> <i class="fa fa-cube"></i> <span>Categories</span> </a></li>
