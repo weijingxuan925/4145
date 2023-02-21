@@ -1000,7 +1000,7 @@ body.dark-mode {
 ========================================================================== */
 @media screen and (max-width: 1367px) {
   .page-heading .blog-featured-image {
-    height: 100%;
+    height: auto;
     width: auto;
     max-width: none;
     transform: translateX(-50%);
@@ -1157,7 +1157,7 @@ body.dark-mode {
   .page-heading .title {
     font-size: 2.75rem; }
   .page-heading .blog-featured-image {
-    height: 100%;
+    height: auto;
     width: auto;
     max-width: none;
     left: 50%;
