@@ -3,22 +3,9 @@
 <div th:replace="admin/module/_header"></div>
 
 <div class="wrapper">
-    <!-- 菜单栏模块 -->
+
     <div th:replace="admin/module/_sidebar"></div>
     <div class="content-wrapper">
-        <section class="content-header">
-            <h1>
-                [[${title}]]
-            </h1>
-            <ol class="breadcrumb">
-                <li>
-                    <a data-pjax="true" href="/admin">
-                        <i class="fa fa-dashboard"></i>home</a>
-                </li>
-                <li><a data-pjax="true" href="/admin/category">category management</a></li>
-                <li class="active">[[${title}]]</li>
-            </ol>
-        </section>
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -36,7 +23,7 @@
                                         class="btn btn-primary btn-sm ">Submit
                                 </button>
                                 <a href="/admin/category"
-                                   class="btn btn-info btn-sm">back</a>
+                                   class="btn btn-info btn-sm">Cancel</a>
                             </div>
                         </form>
                     </div>
@@ -46,23 +33,34 @@
     </div>
     <script>
         function updateSubmit() {
+            const id = $('#id').val();
+            const cateName = $('#cateName').val();
+            if (!id) {
+                showMsg('Please enter category id', 'error', 2000);
+                return;
+            }
+            if (!cateName) {
+                showMsg('Please enter category name', 'error', 2000);
+                return;
+            }
             $.ajax({
                 type: 'POST',
                 url: '/admin/category/update',
                 async: false,
                 data: {
-                    'id': $('#id').val(),
-                    'cateName': $('#cateName').val()
+                    'id': id,
+                    'cateName': cateName
                 },
                 success: function (data) {
-                    if (data.code == 0) {
+                    if (data.code === 0) {
                         showMsg(data.msg, "error", 1000);
                     } else {
                         showMsgAndRedirect(data.msg, "success", 1000, "/admin/category");
                     }
                 }
             });
-        };
+        }
+
     </script>
 </div>
 <div th:replace="admin/module/_footer"></div>

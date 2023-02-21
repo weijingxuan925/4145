@@ -1,65 +1,83 @@
  <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<div th:replace="admin/module/_header"></div>
-    <div class="wrapper">
-            <div th:replace="admin/module/_sidebar"></div>
 
+<html xmlns:th="http://www.thymeleaf.org" lang="eu">
+ <body>
+ <div th:replace="admin/module/_header"></div>
+    <div class="wrapper">
+            <div th:replace="admin/module/_sidebar">
+            </div>
         <div class="content-wrapper">
             <style>
                 .form-horizontal .control-label {
-                    text-align: left;
+                    text-align: center;
                 }
             </style>
             <section class="content-header">
                 <h1>
                     [[${title}]]
-                    <small></small>
                 </h1>
+<!--                右上角项目list-->
                 <ol class="breadcrumb">
                     <li>
                         <a data-pjax="true" href="/admin">
-                            <i class="fa fa-dashboard"></i>home</a>
+                            <i class="fa fa-dashboard"></i>
+                            Home
+                        </a>
                     </li>
-                    <li><a data-pjax="true" href="#">user management</a></li>
-                    <li class="active">[[${title}]]</li>
+                    <li>
+                        <a data-pjax="true" href="#">
+                            user
+                        </a>
+                    </li>
+                    <li class="active">
+                        [[${title}]]
+                    </li>
                 </ol>
             </section>
-            <!-- tab选项卡 -->
             <section class="content container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="nav-tabs-custom">
+
+                            <!-- tab选项卡 -->
                             <ul class="nav nav-tabs">
-                                <li class="active">
-                                    <a href="#general"
-                                       data-toggle="tab">update user profile</a>
-                                </li>
+                                <!-- 连接password修改端口-->
                                 <li>
                                     <a href="#pass"
-                                       data-toggle="tab">modify password</a>
+                                       data-toggle="tab">Change password</a>
+                                </li>
+                                <li class="active">
+                                    <a href="#general"
+                                       data-toggle="tab">
+                                        update Admin profile
+                                    </a>
                                 </li>
                             </ul>
+
                             <div class="tab-content">
                                 <div class="tab-pane active" id="general">
                                     <form method="post" class="form-horizontal" id="profileForm">
                                         <input type="hidden" id="userPass" name="userPass"
                                                th:value="${user.userPass}">
+                                        <!--更换头像-->
                                         <div class="box-body">
                                             <div class="form-group">
-                                                <label for="userAvatar"
-                                                       class="col-lg-2 col-sm-4 control-label">avatar</label>
+                                                <label for="userAvatar" class="col-lg-2 col-sm-4 control-label">
+                                                    Avatar
+                                                </label>
                                                 <div class="col-lg-4 col-sm-8">
+<!--                                                    显示头像-->
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control"
-                                                               id="userAvatar"
-                                                               name="userAvatar" th:value="${user.userAvatar}">
+                                                        <input type="text" class="form-control" id="userAvatar" name="userAvatar" th:value="${user.userAvatar}">
                                                         <span class="input-group-btn">
-                                                    <input type="file" id="file" accept=".png, .jpg, .jpeg" style="display: none">
-                                                        <button onclick="$('#file').click();" class="btn btn-default "
-                                                                type="button">Chooese</button>
-                                                    </span>
+                                                            <input type="file" id="file" accept=".png, .jpg, .jpeg" style="display: none">
+                                                            <button onclick="$('#file').click();" class="btn btn-default " type="button">
+                                                            Choose file
+                                                            </button>
+                                                        </span>
                                                     </div>
-                                                    <img th:src="${user.userAvatar}" id="userAvatarImg" style="width: 200px;" alt="">
+<!--                                                    这个img是用来显示上传的图片的不需要src-->
+                                                    <img th:src="${user.userAvatar}" id="userAvatarImg" style="width: 150px;" alt="">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -109,42 +127,42 @@
                                             </div>
                                         </div>
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-primary btn-sm "
-                                                    onclick="saveUser('profileForm')">Submit</button>
+                                            <button type="button" class="btn btn-primary btn-sm " onclick="saveUser('profileForm')">
+                                                Update Info
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
+<!--                                修改密码-->
                                 <div class="tab-pane" id="pass">
                                     <form method="post" class="form-horizontal" id="passForm">
                                         <div class="box-body">
                                             <div class="form-group">
-                                                <label for="beforePass"
-                                                       class="col-sm-2 control-label">Old Password</label>
+                                                <label for="beforePass" class="col-sm-2 control-label">
+                                                    Current Password
+                                                </label>
                                                 <div class="col-sm-4">
-                                                    <input type="password" class="form-control" id="beforePass"
-                                                           name="beforePass">
+                                                    <input type="password" class="form-control" id="beforePass" name="beforePass">
                                                 </div>
                                             </div>
+
                                             <div class="form-group">
-                                                <label for="newPass"
-                                                       class="col-sm-2 control-label">New Password</label>
+                                                <label for="newPass" class="col-sm-2 control-label">New Password</label>
                                                 <div class="col-sm-4">
-                                                    <input type="password" class="form-control" id="newPass"
-                                                           name="newPass">
+                                                    <input type="password" class="form-control" id="newPass" name="newPass">
                                                 </div>
                                             </div>
+<!--                                            确认密码-->
                                             <div class="form-group">
-                                                <label for="reNewPass"
-                                                       class="col-sm-2 control-label">Confirm Password</label>
+                                                <label for="reNewPass" class="col-sm-2 control-label">Confirm Password</label>
                                                 <div class="col-sm-4">
-                                                    <input type="password" class="form-control" id="reNewPass"
-                                                           name="reNewPass">
+                                                    <input type="password" class="form-control" id="reNewPass" name="reNewPass">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="box-footer">
-                                            <button type="button" class="btn btn-primary btn-sm "
-                                                    onclick="changPass()">Submit</button>
+<!--                                            调用change-->
+                                            <button type="button" class="btn btn-primary btn-sm " onclick="changPass()">Update</button>
                                         </div>
                                     </form>
                                 </div>
@@ -153,60 +171,57 @@
                     </div>
                 </div>
             </section>
+<!--            脚本-->
                 <script>
-                    $(function () {
-                        $('[data-toggle="tooltip"]').tooltip()
+                    $(function() {
+                        $('[data-toggle="tooltip"]').tooltip();
                     });
-
-
-                    function saveUser(option) {
-                        var param = $('#' + option).serialize();
-                        $.ajax({
-                            type: 'post',
-                            url: '/admin/user/profile/update',
-                            data: param,
-                            success: function (data) {
-                                if (data.code == 1) {
-                                    showMsg(data.msg, "success", 1000);
-                                } else {
-                                    showMsg(data.msg, "error", 1000);
-                                }
-                            }
-                        });
-                    }
-
                     function changPass() {
-                        var beforePass = $('#beforePass').val();
-                        var newPass = $('#newPass').val();
-                        var reNewPass = $('#reNewPass').val();
-                        if (beforePass == "" || newPass == "" || reNewPass == "") {
-                            showMsg("Please enter complete information", "info", 2000);
+                        const beforePass = $('#beforePass').val();
+                        const newPass = $('#newPass').val();
+                        const reNewPass = $('#reNewPass').val();
+                        if (beforePass === '' || newPass === '' || reNewPass === '') {
+                            showMsg('Please enter complete information', 'info', 2000);
                             return;
                         }
-                        if (newPass != reNewPass) {
-                            showMsg("The two passwords do not match", "error", 1000);
+                        if (newPass !== reNewPass) {
+                            showMsg('The two passwords do not match', 'error', 1000);
                             return;
                         }
-                        var param = $('#passForm').serialize();
+                        const param = $('#passForm').serialize();
                         $.ajax({
                             type: 'post',
                             url: '/admin/user/changePass',
                             data: param,
-                            success: function (data) {
-                                if (data.code == 1) {
-                                    showMsg(data.msg, "success", 1000);
+                            success: function(data) {
+                                if (data.code === 1) {
+                                    showMsg(data.msg, 'success', 1000);
                                 } else {
-                                    showMsg(data.msg, "error", 1000);
+                                    showMsg(data.msg, 'error', 1000);
                                 }
                             }
                         });
                     }
-
-
-                    $('body').on('change', '#file', function () {
-                        var formData = new FormData();
-                        var files = $($(this))[0].files[0];
-                        formData.append("file", files);
+                    function saveUser(option) {
+                        const param = $('#' + option).serialize();
+                        $.ajax({
+                            type: 'post',
+                            url: '/admin/user/profile/update',
+                            data: param,
+                            success: function(data) {
+                                if (data.code === 1) {
+                                    showMsg(data.msg, 'success', 1000);
+                                }
+                                else {
+                                    showMsg(data.msg, 'error', 1000);
+                                }
+                            }
+                        });
+                    }
+                    $('body').on('change', '#file', function() {
+                        const formData = new FormData();
+                        const files = $($(this))[0].files[0];
+                        formData.append('file', files);
                         $.ajax({
                             url: '/file/upload/img',
                             type: 'POST',
@@ -214,17 +229,17 @@
                             processData: false,
                             contentType: false,
                             dataType: 'json',
-                            success: function (res) {
+                            success: function(res) {
                                 console.log(res);
                                 $('#userAvatar').val(res.result);
                                 $('#userAvatarImg').attr('src', res.result);
-                            }
-                            , error: function (res) {
-                            }
+                            },
+                            error: function(res) {}
                         });
-                    })
+                    });
                 </script>
         </div>
     </div>
  <div th:replace="admin/module/_footer"></div>
+ </body>
 

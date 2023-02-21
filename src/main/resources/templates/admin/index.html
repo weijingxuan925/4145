@@ -1,24 +1,35 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="eu">
 <div th:replace="admin/module/_header"></div>
 <div class="wrapper">
     <div th:replace="admin/module/_sidebar"></div>
     <div class="content-wrapper">
         <section class="content-header">
-            <h1 style="display: inline-block;">Home page</h1>
+            <h2 style="display: inline-block; color:#AF5DF0;">Home Page </h2>
             <ol class="breadcrumb">
                 <li>
                     <a data-pjax="true" href="/admin">
-                        <i class="fa fa-dashboard"></i>Home</a>
+                        <i class="fa fa-dashboard"></i>Back to home page</a>
                 </li>
             </ol>
+        </section>
+        <section class="content-header">
+            <h1 style="display: inline-block; color:#5FA5FA;">For CSCI4145</h1>
         </section>
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-xs-12">
                     Welcome to the Admin page
                 </div>
-                <div class="col-xs-12"></div>
+                <div class="col-xs-12">
+                    This is the CSCI4145 Project
+                </div>
+                <div class="col-xs-12">
+                    This is a cloud-based web application for a personal blog
+                </div>
+                <div class="col-xs-12">
+                    You are not at Admin Control page
+                </div>
             </div>
         </section>
     </div>

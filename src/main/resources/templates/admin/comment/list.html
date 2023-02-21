@@ -2,30 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:replace="admin/module/_header"></div>
 <div class="wrapper">
-    <!-- 菜单栏模块 -->
+
     <div th:replace="admin/module/_sidebar"></div>
     <div class="content-wrapper">
-        <section class="content-header">
-            <h1>
-                [[${title}]]
-                <small></small>
-            </h1>
-            <ol class="breadcrumb">
-                <li>
-                    <a data-pjax="true" href="/admin">
-                        <i class="fa fa-dashboard"></i>home
-                    </a>
-                </li>
-                <li><a data-pjax="true" href="/admin/comment">comment management</a></li>
-                <li class="active">[[${title}]]</li>
-            </ol>
-        </section>
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="col-md-4 col-xs-12" style="margin-bottom: 10px;padding-left: 0;">
                         <button type="button" class="btn btn-danger" onclick="batchDelete()">
-                            <i class="fa fa-remove"></i> Batch Delete
+                            <i class="fa fa-remove"></i>Delete
                         </button>
                     </div>
                 </div>
@@ -35,30 +20,32 @@
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th class="col-md-1"><input type="checkbox" id="allSelect" onclick="doCheck()"></th>
+                                    <th class="col-md-1"><label for="allSelect"></label><input type="checkbox" id="allSelect" onclick="doCheck()"></th>
                                     <th class="col-md-2">Author</th>
-                                    <th class="com-md-4">Comment Content</th>
-                                    <th class="com-md-2">Post Title</th>
-                                    <th class="col-md-2">Create Time</th>
-                                    <th class="col-md-2">Action</th>
+                                    <th class="com-md-4">Content</th>
+                                    <th class="com-md-2">Title</th>
+                                    <th class="col-md-2">Time</th>
+                                    <th class="col-md-2">Operation</th>
                                 </tr>
                                 </thead>
+
                                 <tbody>
                                 <tr  th:each="item : ${pageInfo.records}">
                                     <td><input type="checkbox" name="ids" th:value="${item.id}"></td>
                                     <td>
-                                        [[${item.authorName}]] <br>
-                                        [[${item.authorEmail}]]
+                                        Name: [[${item.authorName}]]
+                                        <br>
+                                        Email: [[${item.authorEmail}]]
                                     </td>
                                     <td>
                                         [[${item.commentContent}]]
                                     </td>
                                     <td>
                                         <a th:href="${item.post != null ? '/post/'+item.post.id : '#'}">
-                                            [[${item.post != null ? item.post.postTitle : ''}]]
+                                           [[${item.post != null ? item.post.postTitle : ''}]]
                                         </a>
                                     </td>
-                                    <td th:text="${#dates.format(item.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                                    <td th:text="${#dates.format(item.createTime,'yyyy-MM-dd')}"></td>
                                     <td >
                                         <a th:href="'/admin/comment/reply/'+${item.id}" class="btn btn-primary btn-xs ">Reply</a>
                                         <a th:href="'/admin/comment/edit/'+${item.id}" class="btn btn-info btn-xs ">Edit</a>
@@ -73,7 +60,6 @@
                         <div class="box-footer clearfix">
                             <div th:replace="admin/module/_page"></div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -81,16 +67,43 @@
     </div>
     <script>
         function deleteIt(id) {
-            layer.confirm('Please confirm whether to delete', function (index) {
+            layer.confirm('Please confirm', function (index) {
                 $.ajax({
                     type: 'POST',
                     url: '/admin/comment/delete',
-                    async: false,
+                    async: true,
                     data: {
                         'id': id
                     },
+                    success: (data) => {
+                        if (data.code === 0) {
+                            showMsg(data.msg, "error", 1000);
+                        } else {
+                            showMsgAndReload(data.msg, "success", 2000);
+                        }
+                    },
+                    error: (error) => {
+                        showMsg(error.responseJSON.msg, "error", 1000);
+                    }
+                });
+                layer.close(index);
+            });
+        }
+
+        function batchDelete() {
+            const ids = $('input[name="ids"]:checked').map(function() {
+                return $(this).val();
+            }).get();
+            if (ids.length <= 0) {
+                showMsg('Please select the data to delete', "error", 1000);
+                return;
+            }
+            layer.confirm('Please confirm whether to delete', function (index) {
+                $.ajax({
+                    url: "/admin/comment/batchDelete?ids=" + ids.join(','),
+                    type: "POST",
                     success: function (data) {
-                        if (data.code == 0) {
+                        if (data.code === 0) {
                             showMsg(data.msg, "error", 1000);
                         } else {
                             showMsgAndReload(data.msg, "success", 2000);
@@ -99,31 +112,6 @@
                 });
                 layer.close(index);
             });
-        };
-        
-        function batchDelete() {
-            var arr = [];
-            $('input[name="ids"]:checked').each(function () {
-                arr.push($(this).val());
-            });
-            if (arr.length <= 0) {
-                showMsg('Please select the data to delete', "error", 1000);
-            } else {
-                layer.confirm('Please confirm whether to delete', function (index) {
-                    $.ajax({
-                        url: "/admin/comment/batchDelete?ids=" + arr,
-                        type: "POST",
-                        success: function (data) {
-                            if (data.code == 0) {
-                                showMsg(data.msg, "error", 1000);
-                            } else {
-                                showMsgAndReload(data.msg, "success", 2000);
-                            }
-                        }
-                    });
-                    layer.close(index);
-                });
-            }
         }
     </script>
 

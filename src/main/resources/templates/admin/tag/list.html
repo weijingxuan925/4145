@@ -5,21 +5,6 @@
     <!-- 菜单栏模块 -->
     <div th:replace="admin/module/_sidebar"></div>
     <div class="content-wrapper">
-        <section class="content-header">
-            <h1>
-                [[${title}]]
-                <small></small>
-            </h1>
-            <ol class="breadcrumb">
-                <li>
-                    <a data-pjax="true" href="/admin">
-                        <i class="fa fa-dashboard"></i>home
-                    </a>
-                </li>
-                <li><a data-pjax="true" href="/admin/tag">Tag management</a></li>
-                <li class="active">[[${title}]]</li>
-            </ol>
-        </section>
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-xs-12">
@@ -27,8 +12,8 @@
                         <a class="btn btn-primary" href="/admin/tag/create">
                             <i class="fa fa-plus"></i> Create
                         </a>
-                        <button type="button" class="btn btn-danger" onclick="batchDelete()">
-                            <i class="fa fa-remove"></i> Batch Delete
+                        <button type="button" class="btn btn-danger" onclick="deleteAll()">
+                            <i class="fa fa-remove"></i> Delete
                         </button>
                     </div>
                 </div>
@@ -39,25 +24,32 @@
                                 <thead>
                                 <tr>
                                     <th class="col-md-1"><input type="checkbox" id="allSelect" onclick="doCheck()"></th>
-                                    <th>Name</th>
-                                    <th class="col-md-2">Action</th>
-                                    <th class="col-md-1">ID</th>
-
+                                    <th>Tag names</th>
+                                    <th class="col-md-2">Operation</th>
+                                    <th class="col-md-1">Index</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr  th:each="item : ${pageInfo.records}">
-                                    <td><input type="checkbox" name="ids" th:value="${item.id}"></td>
+                                <tr th:each="item : ${pageInfo.records}">
                                     <td>
-                                        <a th:href="'/tag/'+${item.id}">[[${item.tagName}]]</a>
+                                        <input type="checkbox" name="ids" th:value="${item.id}">
+                                    </td>
+                                    <td>
+                                        <a th:href="'/tag/'+${item.id}">
+                                            [[${item.tagName}]]
+                                        </a>
                                     </td>
                                     <td >
-                                        <a th:href="'/admin/tag/edit/'+${item.id}" class="btn btn-info btn-xs ">Edit</a>
+                                        <a th:href="'/admin/tag/edit/'+${item.id}" class="btn btn-info btn-xs ">
+                                            Modify
+                                        </a>
                                         <button class="btn btn-danger btn-xs" th:onclick="'deleteIt('+${item.id}+')'">
                                             Delete
                                         </button>
                                     </td>
-                                    <td>[[${item.id}]]</td>
+                                    <td>
+                                        [[${item.id}]]
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -65,7 +57,6 @@
                         <div class="box-footer clearfix">
                             <div th:replace="admin/module/_page"></div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -73,11 +64,10 @@
     </div>
     <script>
         function deleteIt(id) {
-            layer.confirm('Please confirm whether to delete', function (index) {
+            if (confirm('Please confirm whether to delete')) {
                 $.ajax({
                     type: 'POST',
                     url: '/admin/tag/delete',
-                    async: false,
                     data: {
                         'id': id
                     },
@@ -89,34 +79,32 @@
                         }
                     }
                 });
-                layer.close(index);
-            });
-        };
-        
-        function batchDelete() {
-            var arr = [];
-            $('input[name="ids"]:checked').each(function () {
-                arr.push($(this).val());
-            });
-            if (arr.length <= 0) {
+            }
+        }
+        function deleteAll() {
+            var ids = $('input[name="ids"]:checked').map(function() {
+                return this.value;
+            }).get().join(",");
+            if (ids.length <= 0) {
                 showMsg('Please select the data to delete', "error", 1000);
             } else {
-                layer.confirm('Please confirm whether to delete', function (index) {
+                if (confirm('Please confirm whether to delete')) {
                     $.ajax({
-                        url: "/admin/tag/batchDelete?ids=" + arr,
+                        url: "/admin/tag/batchDelete?ids=" + ids,
                         type: "POST",
                         success: function (data) {
-                            if (data.code == 0) {
+                            if (data.code === 0) {
                                 showMsg(data.msg, "error", 1000);
                             } else {
                                 showMsgAndReload(data.msg, "success", 2000);
                             }
                         }
                     });
-                    layer.close(index);
-                });
+                }
             }
         }
+
+
     </script>
 
 </div>
