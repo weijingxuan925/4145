@@ -27,7 +27,9 @@ throw new Error('AdminLTE requires jQuery')
  */
 +function ($) {
   'use strict';
+
   var DataKey = 'lte.boxrefresh';
+
   var Default = {
     source         : '',
     params         : {},
@@ -871,7 +873,14 @@ throw new Error('AdminLTE requires jQuery')
 }(jQuery);
 
 
-
+/* TodoList()
+ * =========
+ * Converts a list into a todoList.
+ *
+ * @Usage: $('.my-list').todoList(options)
+ *         or add [data-widget="todo-list"] to the ul element
+ *         Pass any option as data-option="value"
+ */
 +function ($) {
   'use strict';
 

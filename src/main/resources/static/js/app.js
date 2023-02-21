@@ -1,11 +1,14 @@
+
 /**
- * Create by JingxuanWei
- * @param text is the message
- * @param icon is the icon
- * @param hideAfter is the time to hide
+ * 提示框
+ * @param text
+ * @param icon
+ * @param hideAfter
  */
 function showMsg(text, icon, hideAfter) {
-    const heading = "Tips";
+    if (heading == undefined) {
+        var heading = "Tips";
+    }
     $.toast({
         text: text,
         heading: heading,
@@ -13,12 +16,18 @@ function showMsg(text, icon, hideAfter) {
         showHideTransition: 'fade',
         allowToastClose: true,
         hideAfter: hideAfter,
+        stack: 1,
+        position: 'top-center',
+        textAlign: 'left',
         loader: true,
         loaderBg: '#ffffff'
     });
 }
+
 function showMsgAndReload(text, icon, hideAfter) {
-    const heading = "Tips";
+    if (heading == undefined) {
+        var heading = "Tips";
+    }
     $.toast({
         text: text,
         heading: heading,
@@ -26,6 +35,9 @@ function showMsgAndReload(text, icon, hideAfter) {
         showHideTransition: 'fade',
         allowToastClose: true,
         hideAfter: hideAfter,
+        stack: 1,
+        position: 'top-center',
+        textAlign: 'left',
         loader: true,
         loaderBg: '#ffffff',
         afterHidden: function () {
@@ -35,7 +47,9 @@ function showMsgAndReload(text, icon, hideAfter) {
 }
 
 function showMsgAndRedirect(text, icon, hideAfter, redirectUrl) {
-    const heading = "Tips";
+    if (heading == undefined) {
+        var heading = "Tips";
+    }
     $.toast({
         text: text,
         heading: heading,
@@ -43,6 +57,9 @@ function showMsgAndRedirect(text, icon, hideAfter, redirectUrl) {
         showHideTransition: 'fade',
         allowToastClose: true,
         hideAfter: hideAfter,
+        stack: 1,
+        position: 'top-center',
+        textAlign: 'left',
         loader: true,
         loaderBg: '#ffffff',
         afterHidden: function () {
@@ -51,11 +68,21 @@ function showMsgAndRedirect(text, icon, hideAfter, redirectUrl) {
     });
 }
 
+
+/**
+ * 全选和反选
+ * @constructor
+ */
 function doCheck() {
-    const ch = document.getElementsByName("ids");
-    const allSelect = document.getElementById("allSelect").checked;
-    for (let i = 0; i < ch.length; i++) {
-        ch[i].checked = allSelect;
+    var ch = document.getElementsByName("ids");
+    if (document.getElementById("allSelect").checked == true) {
+        for (var i = 0; i < ch.length; i++) {
+            ch[i].checked = true;
+        }
+    } else {
+        for (var i = 0; i < ch.length; i++) {
+            ch[i].checked = false;
+        }
     }
 }
 

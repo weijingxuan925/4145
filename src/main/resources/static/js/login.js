@@ -16,7 +16,7 @@ $('#btn-login').click(function () {
     const pwd = $("#userPass").val();
     const rememberMe = $("#rememberMe").prop("checked");
     if (name == "" || pwd == "") {
-        showMsg("Please Input All the Information!", "error", 1000);
+        showMsg("请输入完整信息！", "error", 1000);
         $('#btn-login').button('reset');
     } else {
         $.ajax({
