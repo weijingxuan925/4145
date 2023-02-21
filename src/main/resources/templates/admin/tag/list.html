@@ -59,19 +59,18 @@
                         <div class="box-footer clearfix">
                             <div th:replace="admin/module/_page"></div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </section>
     </div>
     <script>
+
         function deleteIt(id) {
-            layer.confirm('Please confirm whether to delete', function (index) {
+            if (confirm('Please confirm whether to delete')) {
                 $.ajax({
                     type: 'POST',
                     url: '/admin/tag/delete',
-                    async: false,
                     data: {
                         'id': id
                     },
@@ -83,34 +82,34 @@
                         }
                     }
                 });
-                layer.close(index);
-            });
-        };
-        
+            }
+        }
+
         function deleteAll() {
-            var arr = [];
-            $('input[name="ids"]:checked').each(function () {
-                arr.push($(this).val());
-            });
-            if (arr.length <= 0) {
+            var ids = $('input[name="ids"]:checked').map(function() {
+                return this.value;
+            }).get().join(",");
+
+            if (ids.length <= 0) {
                 showMsg('Please select the data to delete', "error", 1000);
             } else {
-                layer.confirm('Please confirm whether to delete', function (index) {
+                if (confirm('Please confirm whether to delete')) {
                     $.ajax({
-                        url: "/admin/tag/batchDelete?ids=" + arr,
+                        url: "/admin/tag/batchDelete?ids=" + ids,
                         type: "POST",
                         success: function (data) {
-                            if (data.code == 0) {
+                            if (data.code === 0) {
                                 showMsg(data.msg, "error", 1000);
                             } else {
                                 showMsgAndReload(data.msg, "success", 2000);
                             }
                         }
                     });
-                    layer.close(index);
-                });
+                }
             }
         }
+
+
     </script>
 
 </div>
