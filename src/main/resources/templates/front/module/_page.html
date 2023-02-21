@@ -52,6 +52,7 @@
         <li th:if="${(pageInfo.current) le 4}"
             th:classappend="${(pageInfo.current) eq i} ? 'active' : ''"
             th:each="i : ${#numbers.sequence(2,5)}">
+
             <!-- 当前页面小于等于4 -->
             <a th:href="${pagePrefix}+'page='+${i}">
                 [[${i}]]

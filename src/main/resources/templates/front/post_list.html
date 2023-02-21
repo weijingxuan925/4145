@@ -1,7 +1,6 @@
 ﻿<div th:replace="front/module/_header"></div>
 
 <div class="page-container">
-    <!-- page heading-->
     <div class="page-heading-container loaded-images-wrapper">
         <div class="page-heading news-detail"><img
                 src="/static/assets/images/650.jpg" alt=""
@@ -49,7 +48,7 @@
                                             </div>
                                             <div class="meta-infor box-right">
                                                 <a href="news-detail.html" class="date item">
-                                                    [[${#dates.format(item.createTime,'yyyy-MM-dd HH:mm:ss')}]]
+                                                    [[${#dates.format(item.createTime,'yyyy-MM-dd')}]]
                                                 </a>
                                             </div>
                                         </div>
