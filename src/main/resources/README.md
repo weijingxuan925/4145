@@ -1,5 +1,6 @@
 # How to use this project
 
+### FOR BACKEND SERVER
 #### NPM Installation
 1. `npm i toastify-js`
 2. `npm i tinymce`
