@@ -1,3 +1,31 @@
+/*------------------------------------------------------------------
+[Table of contents]
+This file include css code for element.
+Press Ctrl + F to find component. Ex: "#Header";
+
+#General
+#Heading
+#InfoBox
+#SocialList
+#Button
+#Image
+#Testimonial
+#FeatureBox
+#Video
+#Gallery
+#ContactForm
+#Contact
+#Timeline
+#BlogGrid
+#BlogMasonry
+#ServiceTab
+#ServiceCarousel
+#ProjectGrid
+
+-------------------------------------------------------------------*/
+/*------
+// Variables
+-------*/
 .last-col {
   overflow: hidden !important; }
 

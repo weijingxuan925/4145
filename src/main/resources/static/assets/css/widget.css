@@ -1,4 +1,18 @@
+/*------------------------------------------------------------------
+[Table of contents]
+This file include css code for widget, element in sidebar and footer
 
+- #General
+- #Search
+- #Categories
+- #Recent Post
+- #Tag
+- #Gallery
+- #Widget About
+-------------------------------------------------------------------*/
+/*------
+// Variables
+-------*/
 .swin-widget.swin-widget:not(:last-child) {
   margin-bottom: 60px; }
 

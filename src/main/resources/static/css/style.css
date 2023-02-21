@@ -1,4 +1,6 @@
-
+/**
+    皮肤颜色附加
+ */
 .skin-blue .box.box-primary {
     border-top-color: #fff;
 }
@@ -229,7 +231,9 @@
 
 .thumbnail-checkbox {
     float: left;
-    margin-left: 5px !important;}
+    margin-left: 5px !important;
+    margin-left: 5px !important;
+}
 #post-ul li {
     list-style: none;
     float: left;
