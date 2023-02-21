@@ -1,0 +1,245 @@
+ <!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="eu">
+ <body>
+ <div th:replace="admin/module/_header"></div>
+    <div class="wrapper">
+            <div th:replace="admin/module/_sidebar">
+            </div>
+        <div class="content-wrapper">
+            <style>
+                .form-horizontal .control-label {
+                    text-align: center;
+                }
+            </style>
+            <section class="content-header">
+                <h1>
+                    [[${title}]]
+                </h1>
+<!--                右上角项目list-->
+                <ol class="breadcrumb">
+                    <li>
+                        <a data-pjax="true" href="/admin">
+                            <i class="fa fa-dashboard"></i>
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a data-pjax="true" href="#">
+                            user
+                        </a>
+                    </li>
+                    <li class="active">
+                        [[${title}]]
+                    </li>
+                </ol>
+            </section>
+            <section class="content container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="nav-tabs-custom">
+
+                            <!-- tab选项卡 -->
+                            <ul class="nav nav-tabs">
+                                <!-- 连接password修改端口-->
+                                <li>
+                                    <a href="#pass"
+                                       data-toggle="tab">Change password</a>
+                                </li>
+                                <li class="active">
+                                    <a href="#general"
+                                       data-toggle="tab">
+                                        update Admin profile
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="general">
+                                    <form method="post" class="form-horizontal" id="profileForm">
+                                        <input type="hidden" id="userPass" name="userPass"
+                                               th:value="${user.userPass}">
+                                        <!--更换头像-->
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <label for="userAvatar" class="col-lg-2 col-sm-4 control-label">
+                                                    Avatar
+                                                </label>
+                                                <div class="col-lg-4 col-sm-8">
+<!--                                                    显示头像-->
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="userAvatar" name="userAvatar" th:value="${user.userAvatar}">
+                                                        <span class="input-group-btn">
+                                                            <input type="file" id="file" accept=".png, .jpg, .jpeg" style="display: none">
+                                                            <button onclick="$('#file').click();" class="btn btn-default " type="button">
+                                                            Choose file
+                                                            </button>
+                                                        </span>
+                                                    </div>
+<!--                                                    这个img是用来显示上传的图片的不需要src-->
+                                                    <img th:src="${user.userAvatar}" id="userAvatarImg" style="width: 150px;" alt="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="userName"
+                                                       class="col-lg-2 col-sm-4 control-label">Username
+                                                    <span data-toggle="tooltip" data-placement="top"
+                                                          style="cursor: pointer">
+                                                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                </span>
+                                                </label>
+                                                <div class="col-lg-4 col-sm-8">
+                                                    <input type="text" class="form-control" id="userName" name="userName"
+                                                           th:value="${user.userName}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="userDisplayName"
+                                                       class="col-lg-2 col-sm-4 control-label">User Display Name
+                                                    <span data-toggle="tooltip" data-placement="top"
+                                                          style="cursor: pointer">
+                                                    <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                </span>
+                                                </label>
+                                                <div class="col-lg-4 col-sm-8">
+                                                    <input type="text" class="form-control" id="userDisplayName"
+                                                           name="userDisplayName"
+                                                           th:value="${user.userDisplayName}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="userEmail"
+                                                       class="col-lg-2 col-sm-4 control-label">Email</label>
+                                                <div class="col-lg-4 col-sm-8">
+                                                    <input type="email" class="form-control" id="userEmail"
+                                                           name="userEmail"
+                                                           th:value="${user.userEmail}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="userDesc"
+                                                       class="col-lg-2 col-sm-4 control-label">Description
+                                                </label>
+                                                <div class="col-lg-4 col-sm-8">
+                                                <textarea class="form-control" rows="3" id="userDesc" name="userDesc"
+                                                          style="resize: none">[[${user.userDesc}]]</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-footer">
+                                            <button type="button" class="btn btn-primary btn-sm " onclick="saveUser('profileForm')">
+                                                Update Info
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+<!--                                修改密码-->
+                                <div class="tab-pane" id="pass">
+                                    <form method="post" class="form-horizontal" id="passForm">
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <label for="beforePass" class="col-sm-2 control-label">
+                                                    Current Password
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input type="password" class="form-control" id="beforePass" name="beforePass">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="newPass" class="col-sm-2 control-label">New Password</label>
+                                                <div class="col-sm-4">
+                                                    <input type="password" class="form-control" id="newPass" name="newPass">
+                                                </div>
+                                            </div>
+<!--                                            确认密码-->
+                                            <div class="form-group">
+                                                <label for="reNewPass" class="col-sm-2 control-label">Confirm Password</label>
+                                                <div class="col-sm-4">
+                                                    <input type="password" class="form-control" id="reNewPass" name="reNewPass">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-footer">
+<!--                                            调用change-->
+                                            <button type="button" class="btn btn-primary btn-sm " onclick="changPass()">Update</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+<!--            脚本-->
+                <script>
+                    $(function() {
+                        $('[data-toggle="tooltip"]').tooltip();
+                    });
+                    function changPass() {
+                        const beforePass = $('#beforePass').val();
+                        const newPass = $('#newPass').val();
+                        const reNewPass = $('#reNewPass').val();
+                        if (beforePass === '' || newPass === '' || reNewPass === '') {
+                            showMsg('Please enter complete information', 'info', 2000);
+                            return;
+                        }
+                        if (newPass !== reNewPass) {
+                            showMsg('The two passwords do not match', 'error', 1000);
+                            return;
+                        }
+                        const param = $('#passForm').serialize();
+                        $.ajax({
+                            type: 'post',
+                            url: '/admin/user/changePass',
+                            data: param,
+                            success: function(data) {
+                                if (data.code === 1) {
+                                    showMsg(data.msg, 'success', 1000);
+                                } else {
+                                    showMsg(data.msg, 'error', 1000);
+                                }
+                            }
+                        });
+                    }
+                    function saveUser(option) {
+                        const param = $('#' + option).serialize();
+                        $.ajax({
+                            type: 'post',
+                            url: '/admin/user/profile/update',
+                            data: param,
+                            success: function(data) {
+                                if (data.code === 1) {
+                                    showMsg(data.msg, 'success', 1000);
+                                }
+                                else {
+                                    showMsg(data.msg, 'error', 1000);
+                                }
+                            }
+                        });
+                    }
+                    $('body').on('change', '#file', function() {
+                        const formData = new FormData();
+                        const files = $($(this))[0].files[0];
+                        formData.append('file', files);
+                        $.ajax({
+                            url: '/file/upload/img',
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            dataType: 'json',
+                            success: function(res) {
+                                console.log(res);
+                                $('#userAvatar').val(res.result);
+                                $('#userAvatarImg').attr('src', res.result);
+                            },
+                            error: function(res) {}
+                        });
+                    });
+                </script>
+        </div>
+    </div>
+ <div th:replace="admin/module/_footer"></div>
+ </body>
+
