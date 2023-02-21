@@ -1,24 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:replace="admin/module/_header"></div>
-
 <div class="wrapper">
-    <!-- 菜单栏模块 -->
     <div th:replace="admin/module/_sidebar"></div>
     <div class="content-wrapper">
-        <section class="content-header">
-            <h1>
-                [[${title}]]
-            </h1>
-            <ol class="breadcrumb">
-                <li>
-                    <a data-pjax="true" href="/admin">
-                        <i class="fa fa-dashboard"></i>home</a>
-                </li>
-                <li><a data-pjax="true" href="/admin/post">post management</a></li>
-                <li class="active">[[${title}]]</li>
-            </ol>
-        </section>
         <section class="content container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -27,11 +12,11 @@
                             <div class="box-body">
                                 <input type="hidden" id="id" th:value="${post.id}">
                                 <div class="form-group">
-                                    <label>Title</label>
+                                    <label>Post title</label>
                                     <input type="text" class="form-control input-lg" id="title" th:value="${post.postTitle}" placeholder="">
                                 </div>
                                 <div class="form-group">
-                                    <label>Content</label>
+                                    <label>Input Content</label>
                                     <textarea id="postContent">[[${post.postContent}]]</textarea>
                                 </div>
 
@@ -39,7 +24,7 @@
                                 <div class="form-group">
                                     <label>Category</label>
                                     <select class="form-control  input-lg" id="cateId">
-                                        <option value="-1" disabled="" selected>Please Select Category</option>
+                                        <option value="-1" disabled="" selected>Select</option>
                                         <option th:each="c : ${categories}" th:selected="${cateId == c.id}" th:value="${c.id}">[[${c.cateName}]]
                                         </option>
                                     </select>
@@ -60,7 +45,7 @@
 
                             <div class="box-footer">
                                 <button type="button" class="btn btn-primary" onclick="createSubmit(1)">Publish</button>
-                                <button type="button" class="btn btn-info" onclick="createSubmit(0)">Save as draft</button>
+                                <button type="button" class="btn btn-info" onclick="createSubmit(0)">Draft</button>
                             </div>
                         </form>
                     </div>
@@ -68,54 +53,42 @@
             </div>
         </section>
     </div>
+
     <script>
         tinymce.init({
             selector: '#postContent',
-            // language: "zh_CN",
             height: 600,
             theme: "silver",
-            browser_spellcheck: true, // 拼写检查
-            branding: true, // 去水印
-            // elementpath: false,  //禁用编辑器底部的状态栏
-            statusbar: false, // 隐藏编辑器底部的状态栏
-            paste_data_images: true, // 允许粘贴图像
-            menubar: true, // 隐藏最上方menu
-            fontsize_formats:
-                "12px 13px 14px 15px 16px 17px 18px 20px 22px 24px 26px 30px 35px 40px 50px",
-            plugins:
-                "print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount  imagetools  contextmenu colorpicker textpattern help code",
-            toolbar:
-                "formatselect | bold italic strikethrough forecolor backcolor fontsizeselect | link image  | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat| code",
+            browser_spellcheck: true,
+            branding: true,
+            statusbar: false,
+            paste_data_images: true,
+            menubar: true,
+            fontsize_formats: "12px 13px 14px 15px 16px 17px 18px 20px 22px 24px 26px 30px 35px 40px 50px",
+            plugins: "print preview fullpage searchreplace autolink directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists textcolor wordcount  imagetools  contextmenu colorpicker textpattern help code",
+            toolbar: "formatselect | bold italic strikethrough forecolor backcolor fontsizeselect | link image  | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat| code",
             paste_webkit_styles: true,
-            paste_data_images: true,  //  设置为允许粘帖图片
-            images_upload_url: '/admin/file/upload', //  图片上传地址
+            images_upload_url: '/admin/file/upload',
             contextmenu: `inserttable | cell row column deletetable`,
             relative_urls: false,
             remove_script_host: false
         });
 
-
-        /**
-         * 提交文章
-         * @param status 文章状态
-         */
         function createSubmit(status) {
-            var id = $('#id').val();
-            var title = $('#title').val();
-            var cateId = $('#cateId').val();
-            var tags = $('#tags').val();
-            var postThumbnail = $('#postThumbnail').val();
-            var content = tinymce.activeEditor.getContent();
-            if (title == null || title == '') {
-                showMsg("Please enter article title", "info", 2000);
-                return;
-            }
-            if (cateId == null || cateId == '' || cateId == -1) {
+            const id = $('#id').val();
+            const title = $('#title').val();
+            const cateId = $('#cateId').val();
+            const tags = $('#tags').val();
+            const postThumbnail = $('#postThumbnail').val();
+            const content = tinymce.activeEditor.getContent();
+            if (cateId == null || cateId === '' || cateId === -1) {
                 showMsg("Please select category", "info", 2000);
                 return;
             }
-
-
+            if (title == null || title === '') {
+                showMsg("Please enter article title", "info", 2000);
+                return;
+            }
             $.ajax({
                 type: 'POST',
                 url: '/admin/post/update',
@@ -130,25 +103,24 @@
                     'tags': tags
                 },
                 success: function (data) {
-                    if (data.code == 1) {
-                        if (status == 0) {
-                            showMsg("Save the draft successfully", "success", 2000);
-                        } else {
-                            showMsgAndRedirect("Published successfully", "success", 1000, "/admin/post");
+                    if (data.code === 1) {
+                        if (status === 0) {
+                            showMsg("Successfully", "success", 2000);
+                        }
+                        {
+                            showMsgAndRedirect("Successfully", "success", 1000, "/admin/post");
                         }
                     } else {
                         showMsg(data.msg, "error", 2000);
-
                     }
                 }
             });
         }
 
-
-        $('body').on('change', '#thumbnailFile', function () {
-            var formData = new FormData();
-            var files = $($(this))[0].files[0];
-            formData.append("file", files);
+        $('body').on('change', '#thumbnailFile', () => {
+            const formData = new FormData();
+            const [file] = $('#thumbnailFile').prop('files');
+            formData.append('file', file);
             $.ajax({
                 url: '/file/upload/img',
                 type: 'POST',
@@ -156,21 +128,21 @@
                 processData: false,
                 contentType: false,
                 dataType: 'json',
-                success: function (res) {
-                    if (res.code == 0) {
+                success: (res) => {
+                    if (res.code === 0) {
                         $('#thumbnailImg').hide();
-                        showMsg(res.msg, "error", 2000);
+                        showMsg(res.msg, 'error', 2000);
                     } else {
                         $('#postThumbnail').val(res.result);
-                        $('#thumbnailImg').show();
-                        $('#thumbnailImg').attr('src', res.result);
+                        $('#thumbnailImg').show().attr('src', res.result);
                     }
-                }
-                , error: function (res) {
-                    showMsg('File upload failed', "error", 2000);
+                },
+                error: () => {
+                    showMsg('File upload failed', 'error', 2000);
                 }
             });
         });
+
 
     </script>
 </div>
