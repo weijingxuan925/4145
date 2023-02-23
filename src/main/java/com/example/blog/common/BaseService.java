@@ -8,24 +8,24 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-
+interface CommonConstant {
+    Integer STATUS_NORMAL = 0;
+    String PASSWORD_SALT = "sens";
+    String NONE = "none";
+}
 /**
- * @author 言曌
- * @date 2019-09-04 22:47
+ * @author JingxuanWei
+ * @apiNote  JDK8函数式接口注解 仅能包含一个抽象方法
  */
-// JDK8函数式接口注解 仅能包含一个抽象方法
+
 public interface BaseService<E, ID extends Serializable> {
 
-    /**
-     * @return
-     */
     BaseMapper<E> getRepository();
 
     /**
-     * 根据ID获取
-     *
-     * @param id
-     * @return
+     * 根据ID
+     * @param id 主键ID
+     * @return 实体
      */
     default E get(ID id) {
         return getRepository().selectById(id);
@@ -33,38 +33,35 @@ public interface BaseService<E, ID extends Serializable> {
 
     /**
      * 获取所有列表
-     *
-     * @return
+     * @return List with all info
+     * @deprecated 无使用场景
      */
     default List<E> getAll() {
         return getRepository().selectList(null);
     }
 
     /**
-     * 获取总数
-     *
-     * @return
+     * @deprecated 无使用场景
      */
     default Integer getTotalCount() {
-        return getRepository().selectCount(null);
+        Integer count = getRepository().selectCount(null);
+        return count == null ? 0 : count;
     }
 
     /**
-     * 添加
-     *
-     * @param entity
-     * @return
+     * 添加内容
+     * @param entity 实体
+     * @return 实体
      */
     default E insert(E entity) {
         getRepository().insert(entity);
-            return entity;
+        return entity;
     }
 
     /**
-     * 修改
-     *
-     * @param entity
-     * @return
+     * 修改内容
+     * @param entity 实体
+     * @return 实体
      */
     default E update(E entity) {
         getRepository().updateById(entity);
@@ -72,33 +69,31 @@ public interface BaseService<E, ID extends Serializable> {
     }
 
     /**
-     * 保存或者更新
-     * @param entity
-     * @return
+     * @param entity 实体
+     * @return 实体
+     * @deprecated 无使用场景
      */
     default E insertOrUpdate(E entity) {
         try {
             Object id = entity.getClass().getMethod("getId").invoke(entity);
             if (id != null) {
                 update(entity);
-            } else {
+            }
+            else {
                 insert(entity);
             }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
+        }
+        catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return entity;
     }
 
     /**
-     * 批量保存与修改
-     *
-     * @param list
-     * @return
+     * batch insert
+     * @param list 实体
+     * @return 实体
+     * @deprecated 无使用场景
      */
     default List<E> batchInsert(List<E> list) {
         for (E e : list) {
@@ -107,72 +102,68 @@ public interface BaseService<E, ID extends Serializable> {
         return list;
     }
 
-
     /**
-     * 根据Id删除
-     *
-     * @param id
+     * delete by id
+     * @param id is the id of the entity
      */
     default void delete(ID id) {
         getRepository().deleteById(id);
     }
 
     /**
-     * 批量删除
-     *
-     * @param ids
+     * batchDelete
+     * @param allIds is the id of the entity
      */
-    default void batchDelete(List<ID> ids) {
-        if(ids != null && ids.size() > 0) {
-            getRepository().deleteBatchIds(ids);
+    default void batchDelete(List<ID> allIds) {
+        if(allIds != null ) {
+            if (allIds.size() > 0){
+                getRepository().deleteBatchIds(allIds);
+            }
         }
     }
 
-
     /**
-     * 根据id批量查询
-     * @param ids
-     * @return
+     * use id to find entity
+     * @param allIds is the id of the entity
+     * @return List<E> with all info
      */
-    default List<E> findByBatchIds(List<ID> ids) {
-        return getRepository().selectBatchIds(ids);
+    default List<E> findByBatchIds(List<ID> allIds) {
+        return getRepository().selectBatchIds(allIds);
     }
 
     /**
-     * 获取所有
-     *
-     * @return
+     * get all info not only select * by id
+     * @return List<E> with all info
      */
     default List<E> findAll() {
         return getRepository().selectList(null);
     }
 
     /**
-     * 根据条件查询获取
-     *
-     * @param queryWrapper
-     * @return
+     * get all info by specific condition
+     * @param condition 条件
+     * @return List<E>
      */
-    default List<E> findAll(LambdaQueryWrapper<E> queryWrapper) {
-        return getRepository().selectList(queryWrapper);
+    default List<E> findAll(LambdaQueryWrapper<E> condition) {
+        return getRepository().selectList(condition);
     }
 
 
     /**
-     * 分页获取
-     *
-     * @param page
-     * @return
+     * 把分页的结果封装到page中全部获取
+     * @param page 分页全部
+     * @param condition 条件
+     * @return 分页结果
      */
-    default Page<E> findAll(Page<E> page, LambdaQueryWrapper<E> queryWrapper) {
-        return (Page<E>) getRepository().selectPage(page, queryWrapper);
+    default Page<E> findAll(Page<E> page, LambdaQueryWrapper<E> condition) {
+        return (Page<E>) getRepository().selectPage(page, condition);
     }
 
     /**
-     * 分页获取
-     *
-     * @param page
-     * @return
+     * 只获取单页
+     * @param page 分页
+     * @return 结果
+     * @deprecated 无使用场景
      */
     default Page<E> findAll(Page<E> page) {
         return (Page<E>) getRepository().selectPage(page, null);
@@ -180,13 +171,13 @@ public interface BaseService<E, ID extends Serializable> {
 
 
     /**
-     * 获取查询条件的结果数
-     *
-     * @param queryWrapper
-     * @return
+     * 获取查询结果数
+     * @param condition 条件
+     * @return 结果数
+     * @deprecated 无使用场景
      */
-    default long count(QueryWrapper<E> queryWrapper) {
-        return getRepository().selectCount(queryWrapper);
+    default long count(QueryWrapper<E> condition) {
+        return getRepository().selectCount(condition);
     }
 
 }
