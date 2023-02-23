@@ -9,18 +9,22 @@ import org.springframework.web.servlet.config.annotation.*;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
+    /**
+     * 配置静态资源路径。
+     * 将/static/**请求映射到classpath:/static/下，
+     * 将/**请求映射到classpath:/templates/themes/和classpath:/robots.txt下，
+     * 将/upload/**请求映射到用户主目录下的/sens/upload/下，
+     * 将/favicon.ico请求映射到classpath:/static/images/favicon.ico下。
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/");
-        registry.addResourceHandler("/**")
-                .addResourceLocations("classpath:/templates/themes/")
-                .addResourceLocations("classpath:/robots.txt");
-        registry.addResourceHandler("/upload/**")
-                .addResourceLocations("file:///" + System.getProperties().getProperty("user.home") + "/sens/upload/");
-        registry.addResourceHandler("/favicon.ico")
-                .addResourceLocations("classpath:/static/images/favicon.ico");
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/templates/themes/", "classpath:/robots.txt");
+        String userHome = System.getProperties().getProperty("user.home");
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:" + userHome + "/sens/upload/");
+        registry.addResourceHandler("/favicon.ico").addResourceLocations("classpath:/static/images/favicon.ico");
     }
+
 
     /**
      * 配置用户信息拦截器。
