@@ -12,6 +12,4 @@ import java.util.List;
  * @since 2023/02/10
  */
 public interface CommentDao extends BaseMapper<Comment>  {
-
-
 }

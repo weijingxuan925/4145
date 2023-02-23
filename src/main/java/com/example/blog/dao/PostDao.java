@@ -13,12 +13,6 @@ import java.util.List;
  * @since 2023/02/10
  */
 public interface PostDao extends BaseMapper<Post> {
-
-    List<Post> findByCategoryId(@Param("categoryId") Long categoryId,
-                                @Param("keywords") String keywords,
-                                Page page);
-
-    List<Post> findByTagId(@Param("tagId") Long tagId,
-                                @Param("keywords") String keywords,
-                                Page page);
+    List<Post> findByCategoryId(@Param("categoryId") Long categoryId, @Param("keywords") String keywords, Page page);
+    List<Post> findByTagId(@Param("tagId") Long tagId, @Param("keywords") String keywords, Page page);
 }

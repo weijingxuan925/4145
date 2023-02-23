@@ -8,6 +8,4 @@ import com.example.blog.entity.User;
  * @since 2023/02/10
  */
 public interface UserDao extends BaseMapper<User> {
-
-
 }
