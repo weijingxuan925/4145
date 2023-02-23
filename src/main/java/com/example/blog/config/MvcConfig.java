@@ -22,13 +22,15 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/images/favicon.ico");
     }
 
+    /**
+     * 配置用户信息拦截器。
+     * 拦截/admin和/admin/**请求
+     * 并排除/admin/login和/admin/logout请求。
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        InterceptorRegistration registration = registry.addInterceptor(new UserInfoInterceptor());
-        registration.addPathPatterns("/admin");
-        registration.addPathPatterns("/admin/**");
-        registration.excludePathPatterns("/admin/login");
-        registration.excludePathPatterns("/admin/logout");
+        registry.addInterceptor(new UserInfoInterceptor())
+                .addPathPatterns("/admin", "/admin/**")
+                .excludePathPatterns("/admin/login", "/admin/logout");
     }
-
 }
