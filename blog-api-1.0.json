@@ -1,0 +1,4351 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API for the Blog application",
+    "version": "1.0",
+    "title": "Blog API"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "category-controller",
+      "description": "Category Controller"
+    },
+    {
+      "name": "comment-controller",
+      "description": "Comment Controller"
+    },
+    {
+      "name": "file-controller",
+      "description": "File Controller"
+    },
+    {
+      "name": "index-controller",
+      "description": "Index Controller"
+    },
+    {
+      "name": "login-controller",
+      "description": "Login Controller"
+    },
+    {
+      "name": "post-controller",
+      "description": "Post Controller"
+    },
+    {
+      "name": "tag-controller",
+      "description": "Tag Controller"
+    },
+    {
+      "name": "user-controller",
+      "description": "User Controller"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "index-controller"
+        ],
+        "summary": "pageOfList",
+        "operationId": "pageOfListUsingGET_2",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "keywords",
+            "in": "query",
+            "description": "keywords",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false,
+            "type": "integer",
+            "default": 1,
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "size",
+            "required": false,
+            "type": "integer",
+            "default": 6,
+            "format": "int32"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin": {
+      "get": {
+        "tags": [
+          "index-controller"
+        ],
+        "summary": "index",
+        "operationId": "indexUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/category": {
+      "get": {
+        "tags": [
+          "category-controller"
+        ],
+        "summary": "pageToList",
+        "operationId": "pageToListUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false,
+            "type": "integer",
+            "default": 1,
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "size",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "format": "int32"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/category/batchDelete": {
+      "post": {
+        "tags": [
+          "category-controller"
+        ],
+        "summary": "batchDeleteIndex",
+        "operationId": "batchDeleteIndexUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "ids",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/category/create": {
+      "get": {
+        "tags": [
+          "category-controller"
+        ],
+        "summary": "pageToCreate",
+        "operationId": "pageToCreateUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "category-controller"
+        ],
+        "summary": "create",
+        "operationId": "createUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "cateName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/category/delete": {
+      "post": {
+        "tags": [
+          "category-controller"
+        ],
+        "summary": "delete",
+        "operationId": "deleteUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/category/edit/{id}": {
+      "get": {
+        "tags": [
+          "category-controller"
+        ],
+        "summary": "pageToEdit",
+        "operationId": "pageToEditUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/category/update": {
+      "post": {
+        "tags": [
+          "category-controller"
+        ],
+        "summary": "update",
+        "operationId": "updateUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "cateName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/comment": {
+      "get": {
+        "tags": [
+          "comment-controller"
+        ],
+        "summary": "pageOfList",
+        "operationId": "pageOfListUsingGET_1",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false,
+            "type": "integer",
+            "default": 1,
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "size",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "format": "int32"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/comment/batchDelete": {
+      "post": {
+        "tags": [
+          "comment-controller"
+        ],
+        "summary": "delete",
+        "operationId": "deleteUsingPOST_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "ids",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/comment/delete": {
+      "post": {
+        "tags": [
+          "comment-controller"
+        ],
+        "summary": "delete",
+        "operationId": "deleteUsingPOST_2",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/comment/edit/{id}": {
+      "get": {
+        "tags": [
+          "comment-controller"
+        ],
+        "summary": "pageOfEdit",
+        "operationId": "pageOfEditUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/comment/reply": {
+      "post": {
+        "tags": [
+          "comment-controller"
+        ],
+        "summary": "create",
+        "operationId": "createUsingPOST_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "authorAvatar",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "authorEmail",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "authorName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "commentContent",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "commentParent",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "createTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "creationTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lastAccessedTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "maxInactiveInterval",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "new",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "post.category.cateName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.category.count",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "post.category.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "post.createTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "post.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "post.postContent",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.postStatus",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "post.postSummary",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.postThumbnail",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.postTitle",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.postViews",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "postId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "servletContext.classLoader",
+            "in": "query",
+            "required": false,
+            "type": "ref"
+          },
+          {
+            "name": "servletContext.contextPath",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.defaultSessionTrackingModes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "COOKIE",
+                "URL",
+                "SSL"
+              ]
+            },
+            "collectionFormat": "multi",
+            "enum": [
+              "COOKIE",
+              "URL",
+              "SSL"
+            ]
+          },
+          {
+            "name": "servletContext.effectiveMajorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.effectiveMinorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.effectiveSessionTrackingModes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "COOKIE",
+                "URL",
+                "SSL"
+              ]
+            },
+            "collectionFormat": "multi",
+            "enum": [
+              "COOKIE",
+              "URL",
+              "SSL"
+            ]
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].buffer",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].defaultContentType",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].deferredSyntaxAllowedAsLiteral",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].elIgnored",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].errorOnUndeclaredNamespace",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].includeCodas",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].includePreludes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].isXml",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].pageEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].scriptingInvalid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].trimDirectiveWhitespaces",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].urlPatterns",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.taglibs[0].taglibLocation",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.taglibs[0].taglibURI",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.majorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.minorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.requestCharacterEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.responseCharacterEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.serverInfo",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.servletContextName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.comment",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.domain",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.httpOnly",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.maxAge",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.path",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.secure",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.sessionTimeout",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.virtualServerName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "valueNames",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/comment/reply/{id}": {
+      "get": {
+        "tags": [
+          "comment-controller"
+        ],
+        "summary": "pageOfCreate",
+        "operationId": "pageOfCreateUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/comment/update": {
+      "post": {
+        "tags": [
+          "comment-controller"
+        ],
+        "summary": "update",
+        "operationId": "updateUsingPOST_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "authorAvatar",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "authorEmail",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "authorName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "commentContent",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "commentParent",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "createTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "post.category.cateName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.category.count",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "post.category.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "post.createTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "post.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "post.postContent",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.postStatus",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "post.postSummary",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.postThumbnail",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.postTitle",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.postViews",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "postId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/file/upload": {
+      "post": {
+        "tags": [
+          "file-controller"
+        ],
+        "summary": "uploadFile",
+        "operationId": "uploadFileUsingPOST",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json;charset=UTF-8"
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "file",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/login": {
+      "get": {
+        "tags": [
+          "login-controller"
+        ],
+        "summary": "pageOfLogin",
+        "operationId": "pageOfLoginUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "login-controller"
+        ],
+        "summary": "loginSubmit",
+        "operationId": "loginSubmitUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "creationTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lastAccessedTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "maxInactiveInterval",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "new",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.classLoader",
+            "in": "query",
+            "required": false,
+            "type": "ref"
+          },
+          {
+            "name": "servletContext.contextPath",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.defaultSessionTrackingModes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "COOKIE",
+                "URL",
+                "SSL"
+              ]
+            },
+            "collectionFormat": "multi",
+            "enum": [
+              "COOKIE",
+              "URL",
+              "SSL"
+            ]
+          },
+          {
+            "name": "servletContext.effectiveMajorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.effectiveMinorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.effectiveSessionTrackingModes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "COOKIE",
+                "URL",
+                "SSL"
+              ]
+            },
+            "collectionFormat": "multi",
+            "enum": [
+              "COOKIE",
+              "URL",
+              "SSL"
+            ]
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].buffer",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].defaultContentType",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].deferredSyntaxAllowedAsLiteral",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].elIgnored",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].errorOnUndeclaredNamespace",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].includeCodas",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].includePreludes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].isXml",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].pageEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].scriptingInvalid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].trimDirectiveWhitespaces",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].urlPatterns",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.taglibs[0].taglibLocation",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.taglibs[0].taglibURI",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.majorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.minorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.requestCharacterEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.responseCharacterEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.serverInfo",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.servletContextName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.comment",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.domain",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.httpOnly",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.maxAge",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.path",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.secure",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.sessionTimeout",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.virtualServerName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userName",
+            "in": "query",
+            "description": "userName",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userPass",
+            "in": "query",
+            "description": "userPass",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "valueNames",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/logout": {
+      "get": {
+        "tags": [
+          "login-controller"
+        ],
+        "summary": "logout",
+        "operationId": "logoutUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "creationTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lastAccessedTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "maxInactiveInterval",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "new",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.classLoader",
+            "in": "query",
+            "required": false,
+            "type": "ref"
+          },
+          {
+            "name": "servletContext.contextPath",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.defaultSessionTrackingModes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "COOKIE",
+                "URL",
+                "SSL"
+              ]
+            },
+            "collectionFormat": "multi",
+            "enum": [
+              "COOKIE",
+              "URL",
+              "SSL"
+            ]
+          },
+          {
+            "name": "servletContext.effectiveMajorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.effectiveMinorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.effectiveSessionTrackingModes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "COOKIE",
+                "URL",
+                "SSL"
+              ]
+            },
+            "collectionFormat": "multi",
+            "enum": [
+              "COOKIE",
+              "URL",
+              "SSL"
+            ]
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].buffer",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].defaultContentType",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].deferredSyntaxAllowedAsLiteral",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].elIgnored",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].errorOnUndeclaredNamespace",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].includeCodas",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].includePreludes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].isXml",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].pageEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].scriptingInvalid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].trimDirectiveWhitespaces",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].urlPatterns",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.taglibs[0].taglibLocation",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.taglibs[0].taglibURI",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.majorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.minorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.requestCharacterEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.responseCharacterEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.serverInfo",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.servletContextName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.comment",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.domain",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.httpOnly",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.maxAge",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.path",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.secure",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.sessionTimeout",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.virtualServerName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "valueNames",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/post": {
+      "get": {
+        "tags": [
+          "post-controller"
+        ],
+        "summary": "pageOfList",
+        "operationId": "pageOfListUsingGET_3",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false,
+            "type": "integer",
+            "default": 1,
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "size",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "status",
+            "required": false,
+            "type": "integer",
+            "default": -1,
+            "format": "int32"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/post/batchDelete": {
+      "post": {
+        "tags": [
+          "post-controller"
+        ],
+        "summary": "delete",
+        "operationId": "deleteUsingPOST_3",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "ids",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/post/create": {
+      "get": {
+        "tags": [
+          "post-controller"
+        ],
+        "summary": "pageOfCreate",
+        "operationId": "pageOfCreateUsingGET_1",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "post-controller"
+        ],
+        "summary": "create",
+        "operationId": "createUsingPOST_2",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "cateId",
+            "in": "query",
+            "description": "cateId",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "category.cateName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "category.count",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "category.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "createTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "postContent",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "postStatus",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "postSummary",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "postThumbnail",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "postTitle",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "postViews",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "tags",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/post/delete": {
+      "post": {
+        "tags": [
+          "post-controller"
+        ],
+        "summary": "delete",
+        "operationId": "deleteUsingPOST_4",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/post/edit/{id}": {
+      "get": {
+        "tags": [
+          "post-controller"
+        ],
+        "summary": "pageOfEdit",
+        "operationId": "pageOfEditUsingGET_1",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/post/update": {
+      "post": {
+        "tags": [
+          "post-controller"
+        ],
+        "summary": "update",
+        "operationId": "updateUsingPOST_2",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "cateId",
+            "in": "query",
+            "description": "cateId",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "category.cateName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "category.count",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "category.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "createTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "postContent",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "postStatus",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "postSummary",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "postThumbnail",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "postTitle",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "postViews",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "tags",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/tag": {
+      "get": {
+        "tags": [
+          "tag-controller"
+        ],
+        "summary": "pageOfList",
+        "operationId": "pageOfListUsingGET_5",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false,
+            "type": "integer",
+            "default": 1,
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "size",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "format": "int32"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/tag/batchDelete": {
+      "post": {
+        "tags": [
+          "tag-controller"
+        ],
+        "summary": "delete",
+        "operationId": "deleteUsingPOST_5",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "ids",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/tag/create": {
+      "get": {
+        "tags": [
+          "tag-controller"
+        ],
+        "summary": "pageOfCreate",
+        "operationId": "pageOfCreateUsingGET_2",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "tag-controller"
+        ],
+        "summary": "create",
+        "operationId": "createUsingPOST_3",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "tagName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/tag/delete": {
+      "post": {
+        "tags": [
+          "tag-controller"
+        ],
+        "summary": "delete",
+        "operationId": "deleteUsingPOST_6",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/tag/edit/{id}": {
+      "get": {
+        "tags": [
+          "tag-controller"
+        ],
+        "summary": "pageOfEdit",
+        "operationId": "pageOfEditUsingGET_2",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/tag/update": {
+      "post": {
+        "tags": [
+          "tag-controller"
+        ],
+        "summary": "update",
+        "operationId": "updateUsingPOST_3",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "count",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "tagName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/user/changePass": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "changePass",
+        "operationId": "changePassUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "beforePass",
+            "in": "query",
+            "description": "beforePass",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "creationTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lastAccessedTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "maxInactiveInterval",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "new",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "newPass",
+            "in": "query",
+            "description": "newPass",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.classLoader",
+            "in": "query",
+            "required": false,
+            "type": "ref"
+          },
+          {
+            "name": "servletContext.contextPath",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.defaultSessionTrackingModes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "COOKIE",
+                "URL",
+                "SSL"
+              ]
+            },
+            "collectionFormat": "multi",
+            "enum": [
+              "COOKIE",
+              "URL",
+              "SSL"
+            ]
+          },
+          {
+            "name": "servletContext.effectiveMajorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.effectiveMinorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.effectiveSessionTrackingModes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "COOKIE",
+                "URL",
+                "SSL"
+              ]
+            },
+            "collectionFormat": "multi",
+            "enum": [
+              "COOKIE",
+              "URL",
+              "SSL"
+            ]
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].buffer",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].defaultContentType",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].deferredSyntaxAllowedAsLiteral",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].elIgnored",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].errorOnUndeclaredNamespace",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].includeCodas",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].includePreludes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].isXml",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].pageEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].scriptingInvalid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].trimDirectiveWhitespaces",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].urlPatterns",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.taglibs[0].taglibLocation",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.taglibs[0].taglibURI",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.majorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.minorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.requestCharacterEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.responseCharacterEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.serverInfo",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.servletContextName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.comment",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.domain",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.httpOnly",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.maxAge",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.path",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.secure",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.sessionTimeout",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.virtualServerName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "valueNames",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/user/profile": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "profile",
+        "operationId": "profileUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "creationTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lastAccessedTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "maxInactiveInterval",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "new",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.classLoader",
+            "in": "query",
+            "required": false,
+            "type": "ref"
+          },
+          {
+            "name": "servletContext.contextPath",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.defaultSessionTrackingModes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "COOKIE",
+                "URL",
+                "SSL"
+              ]
+            },
+            "collectionFormat": "multi",
+            "enum": [
+              "COOKIE",
+              "URL",
+              "SSL"
+            ]
+          },
+          {
+            "name": "servletContext.effectiveMajorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.effectiveMinorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.effectiveSessionTrackingModes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "COOKIE",
+                "URL",
+                "SSL"
+              ]
+            },
+            "collectionFormat": "multi",
+            "enum": [
+              "COOKIE",
+              "URL",
+              "SSL"
+            ]
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].buffer",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].defaultContentType",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].deferredSyntaxAllowedAsLiteral",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].elIgnored",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].errorOnUndeclaredNamespace",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].includeCodas",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].includePreludes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].isXml",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].pageEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].scriptingInvalid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].trimDirectiveWhitespaces",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].urlPatterns",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.taglibs[0].taglibLocation",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.taglibs[0].taglibURI",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.majorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.minorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.requestCharacterEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.responseCharacterEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.serverInfo",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.servletContextName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.comment",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.domain",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.httpOnly",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.maxAge",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.path",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.secure",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.sessionTimeout",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.virtualServerName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "valueNames",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/admin/user/profile/update": {
+      "post": {
+        "tags": [
+          "user-controller"
+        ],
+        "summary": "update",
+        "operationId": "updateUsingPOST_4",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "creationTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "lastAccessedTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "maxInactiveInterval",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "new",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.classLoader",
+            "in": "query",
+            "required": false,
+            "type": "ref"
+          },
+          {
+            "name": "servletContext.contextPath",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.defaultSessionTrackingModes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "COOKIE",
+                "URL",
+                "SSL"
+              ]
+            },
+            "collectionFormat": "multi",
+            "enum": [
+              "COOKIE",
+              "URL",
+              "SSL"
+            ]
+          },
+          {
+            "name": "servletContext.effectiveMajorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.effectiveMinorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.effectiveSessionTrackingModes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "COOKIE",
+                "URL",
+                "SSL"
+              ]
+            },
+            "collectionFormat": "multi",
+            "enum": [
+              "COOKIE",
+              "URL",
+              "SSL"
+            ]
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].buffer",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].defaultContentType",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].deferredSyntaxAllowedAsLiteral",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].elIgnored",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].errorOnUndeclaredNamespace",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].includeCodas",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].includePreludes",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].isXml",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].pageEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].scriptingInvalid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].trimDirectiveWhitespaces",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.jspPropertyGroups[0].urlPatterns",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.taglibs[0].taglibLocation",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.jspConfigDescriptor.taglibs[0].taglibURI",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.majorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.minorVersion",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.requestCharacterEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.responseCharacterEncoding",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.serverInfo",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.servletContextName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.comment",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.domain",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.httpOnly",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.maxAge",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.path",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "servletContext.sessionCookieConfig.secure",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "servletContext.sessionTimeout",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "servletContext.virtualServerName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userAvatar",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userDesc",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userDisplayName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userEmail",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "userPass",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "valueNames",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/category/{id}": {
+      "get": {
+        "tags": [
+          "category-controller"
+        ],
+        "summary": "pageOfList",
+        "operationId": "pageOfListUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "keywords",
+            "in": "query",
+            "description": "keywords",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false,
+            "type": "integer",
+            "default": 1,
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "size",
+            "required": false,
+            "type": "integer",
+            "default": 6,
+            "format": "int32"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/comment": {
+      "post": {
+        "tags": [
+          "comment-controller"
+        ],
+        "summary": "comment",
+        "operationId": "commentUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "authorAvatar",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "authorEmail",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "authorName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "commentContent",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "commentParent",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "createTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "post.category.cateName",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.category.count",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "post.category.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "post.createTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "post.id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "post.postContent",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.postStatus",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "post.postSummary",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.postThumbnail",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.postTitle",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post.postViews",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "postId",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/file/upload/img": {
+      "post": {
+        "tags": [
+          "file-controller"
+        ],
+        "summary": "uploadImg",
+        "operationId": "uploadImgUsingPOST",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "file",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/JsonResult"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/post/{id}": {
+      "get": {
+        "tags": [
+          "post-controller"
+        ],
+        "summary": "pageOfList",
+        "operationId": "pageOfListUsingGET_4",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false,
+            "type": "integer",
+            "default": 1,
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "size",
+            "required": false,
+            "type": "integer",
+            "default": 6,
+            "format": "int32"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/tag/{id}": {
+      "get": {
+        "tags": [
+          "tag-controller"
+        ],
+        "summary": "pageOfList",
+        "operationId": "pageOfListUsingGET_6",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "keywords",
+            "in": "query",
+            "description": "keywords",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page",
+            "required": false,
+            "type": "integer",
+            "default": 1,
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "size",
+            "required": false,
+            "type": "integer",
+            "default": 6,
+            "format": "int32"
+          }
+        ],
+        "deprecated": false,
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "JsonResult": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "result": {
+          "type": "object",
+          "properties": {}
+        }
+      },
+      "title": "JsonResult"
+    }
+  }
+}
