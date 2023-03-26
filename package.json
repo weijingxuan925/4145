@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "bonzo": "^2.0.0",
+    "bootstrap": "^5.2.3",
+    "bootstrap-fileinput": "^5.5.2",
+    "font-awesome": "^4.7.0",
+    "froala-editor": "^4.0.18",
+    "jquery": "^3.6.4",
+    "jquery-pjax": "^2.0.1",
+    "layui-layer": "^1.0.9",
+    "lazyload": "^2.0.0-rc.2",
+    "normalize.css": "^8.0.1",
+    "pretty-checkbox": "^3.0.3",
+    "tinymce": "^6.4.0",
+    "toastify-js": "^1.12.0"
+  }
+}
